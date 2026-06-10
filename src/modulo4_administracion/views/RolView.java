@@ -3,7 +3,7 @@ package modulo4_administracion.views;
 import modulo4_administracion.controllers.RolController;
 import core.Model;
 import core.View;
-import models.*;
+import modulo4_administracion.models.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
