@@ -1,9 +1,9 @@
 package modulo4_administracion.views;
 
-import modulo4_administracion.IndicadorController;
+import modulo4_administracion.controllers.IndicadorController;
 import core.Model;
 import core.View;
-import modulo4_administracion.IndicadorAdministrativo;
+import modulo4_administracion.models.IndicadorAdministrativo;
 import javax.swing.*;
 import java.awt.*;
 
