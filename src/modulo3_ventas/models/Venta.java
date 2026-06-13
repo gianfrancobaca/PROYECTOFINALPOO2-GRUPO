@@ -22,6 +22,7 @@ public class Venta {
     private double         igv;
     private double         total;
     private String         observaciones;
+    private String         motivoCancelacion;
 
     public Venta() {}
 
@@ -73,6 +74,9 @@ public class Venta {
 
     public String getObservaciones()                { return observaciones; }
     public void setObservaciones(String o)          { this.observaciones = o; }
+
+    public String getMotivoCancelacion()            { return motivoCancelacion; }
+    public void setMotivoCancelacion(String m)      { this.motivoCancelacion = m; }
 
     @Override
     public String toString() {

@@ -7,6 +7,7 @@ package modulo3_ventas.models;
 public class Producto {
 
     public enum CategoriaProducto { VESTIDO, BLUSA, PANTALON, FALDA, ACCESORIO, CALZADO, OTRO }
+    public enum EstadoProducto    { DISPONIBLE, RESERVADO, VENDIDO }
 
     private int               id;
     private String            codigo;
@@ -15,6 +16,7 @@ public class Producto {
     private CategoriaProducto categoria;
     private double            precioVenta;
     private int               stockDisponible;
+    private EstadoProducto    estado;
     private boolean           activo;
 
     public Producto() {}
@@ -28,15 +30,20 @@ public class Producto {
         this.categoria       = categoria;
         this.precioVenta     = precioVenta;
         this.stockDisponible = stockDisponible;
+        this.estado          = EstadoProducto.DISPONIBLE;
         this.activo          = true;
     }
 
     public boolean tieneStock(int cantidad) {
-        return stockDisponible >= cantidad;
+        return stockDisponible >= cantidad && estado == EstadoProducto.DISPONIBLE;
     }
 
     public void reducirStock(int cantidad) {
         if (tieneStock(cantidad)) this.stockDisponible -= cantidad;
+    }
+
+    public boolean estaDisponible() {
+        return estado == EstadoProducto.DISPONIBLE && activo;
     }
 
     // ── Getters & Setters ──────────────────────────────────────────
@@ -61,12 +68,15 @@ public class Producto {
     public int getStockDisponible()                       { return stockDisponible; }
     public void setStockDisponible(int s)                 { this.stockDisponible = s; }
 
+    public EstadoProducto getEstado()                     { return estado; }
+    public void setEstado(EstadoProducto e)               { this.estado = e; }
+
     public boolean isActivo()                             { return activo; }
     public void setActivo(boolean a)                      { this.activo = a; }
 
     @Override
     public String toString() {
-        return String.format("Producto[%s | %s | S/ %.2f | stock=%d]",
-                codigo, nombre, precioVenta, stockDisponible);
+        return String.format("Producto[%s | %s | S/ %.2f | stock=%d | %s]",
+                codigo, nombre, precioVenta, stockDisponible, estado);
     }
 }
