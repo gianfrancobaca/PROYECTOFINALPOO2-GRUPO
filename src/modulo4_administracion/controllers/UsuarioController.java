@@ -10,6 +10,7 @@ import java.util.List;
  * Controlador de gestión de usuarios del sistema.
  * RF: Gestión de Usuarios, Seguridad y Control de Acceso.
  */
+
 public class UsuarioController extends Controller {
 
     private final UsuarioRepository     usuarioRepo;

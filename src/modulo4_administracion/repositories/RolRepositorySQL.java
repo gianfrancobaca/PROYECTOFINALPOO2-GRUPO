@@ -1,7 +1,7 @@
 package modulo4_administracion.repositories;
 
 import database.DatabaseConnection;
-import models.Rol;
+import modulo4_administracion.models.Rol;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

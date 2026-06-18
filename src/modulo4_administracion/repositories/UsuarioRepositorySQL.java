@@ -1,7 +1,7 @@
 package modulo4_administracion.repositories;
 
 import database.DatabaseConnection;
-import models.Usuario;
+import modulo4_administracion.models.Usuario;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
