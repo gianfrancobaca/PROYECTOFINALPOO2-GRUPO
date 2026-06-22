@@ -3,10 +3,6 @@ package modulo4_administracion.repositories;
 import modulo4_administracion.models.Permiso;
 import java.util.List;
 
-/**
- * Contrato del repositorio de permisos.
- * RF: Gestión de Roles y Permisos.
- */
 public interface PermisoRepository {
     Permiso         buscarPorId(int id);
     List<Permiso>   buscarTodos();

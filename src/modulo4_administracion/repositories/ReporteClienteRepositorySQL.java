@@ -5,9 +5,6 @@ import modulo4_administracion.models.ReporteCliente;
 import java.sql.*;
 import java.time.LocalDate;
 
-/**
- * Implementación SQL del repositorio de reportes de clientes.
- */
 public class ReporteClienteRepositorySQL implements ReporteClienteRepository {
 
     private final Connection conn = DatabaseConnection.getInstance().getConnection();

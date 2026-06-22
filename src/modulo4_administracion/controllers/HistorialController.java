@@ -7,10 +7,7 @@ import modulo4_administracion.views.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Controlador para consultar el historial de operaciones.
- * RF: Historial de Operaciones.
- */
+
 public class HistorialController extends Controller {
 
     private final HistorialOperacionRepository historialRepo;

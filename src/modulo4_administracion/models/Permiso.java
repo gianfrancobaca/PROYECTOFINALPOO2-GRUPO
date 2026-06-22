@@ -1,9 +1,6 @@
 package modulo4_administracion.models;
 
-/**
- * Representa un permiso granular dentro del sistema.
- * RF: Gestión de Roles y Permisos.
- */
+
 public class Permiso {
 
     private int    id;

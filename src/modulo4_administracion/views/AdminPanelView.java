@@ -7,11 +7,6 @@ import modulo4_administracion.models.SesionUsuario;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Panel principal del módulo de Administración y Reportes.
- * Actúa como menú de navegación entre las sub-vistas del módulo.
- */
-@SuppressWarnings("serial")
 public class AdminPanelView extends JPanel implements View {
 
     private final AdminController controller;

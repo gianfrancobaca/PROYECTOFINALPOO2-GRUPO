@@ -2,10 +2,6 @@ package modulo4_administracion.models;
 
 import java.time.LocalDateTime;
 
-/**
- * Registro de exportaciones generadas desde el módulo de reportes.
- * RF: Exportación de Reportes.
- */
 public class ExportacionReporte {
 
     public enum FormatoExportacion { CSV, PDF, EXCEL, TXT }

@@ -6,10 +6,7 @@ import modulo4_administracion.repositories.*;
 import modulo4_administracion.views.*;
 import java.util.List;
 
-/**
- * Controlador de autenticación del sistema.
- * RF: Seguridad y Control de Acceso.
- */
+
 public class LoginController extends Controller {
 
     private final UsuarioRepository  usuarioRepo;

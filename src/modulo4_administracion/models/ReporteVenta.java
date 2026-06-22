@@ -2,10 +2,6 @@ package modulo4_administracion.models;
 
 import java.time.LocalDate;
 
-/**
- * Agrupa los datos calculados para el reporte de ventas.
- * RF: Generación de Reportes de Ventas.
- */
 public class ReporteVenta {
 
     private LocalDate fechaInicio;

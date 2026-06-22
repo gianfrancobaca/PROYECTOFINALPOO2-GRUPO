@@ -6,10 +6,6 @@ import core.View;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Vista de autenticación del sistema.
- * RF: Seguridad y Control de Acceso.
- */
 @SuppressWarnings("serial")
 public class LoginView extends JPanel implements View {
 

@@ -2,10 +2,6 @@ package modulo4_administracion.models;
 
 import java.time.LocalDate;
 
-/**
- * Agrupa los datos del reporte de estado del inventario.
- * RF: Generación de Reportes de Inventario.
- */
 public class ReporteInventario {
 
     private LocalDate fechaGeneracion;

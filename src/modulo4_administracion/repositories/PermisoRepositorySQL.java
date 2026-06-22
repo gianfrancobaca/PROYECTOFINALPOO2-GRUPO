@@ -6,9 +6,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Implementación SQL del repositorio de permisos.
- */
 public class PermisoRepositorySQL implements PermisoRepository {
 
     private final Connection conn = DatabaseConnection.getInstance().getConnection();

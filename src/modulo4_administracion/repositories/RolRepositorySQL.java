@@ -6,9 +6,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Implementación SQL del repositorio de roles.
- */
 public class RolRepositorySQL implements RolRepository {
 
     private final Connection conn = DatabaseConnection.getInstance().getConnection();

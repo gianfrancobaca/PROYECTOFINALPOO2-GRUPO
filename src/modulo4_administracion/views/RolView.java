@@ -9,11 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-/**
- * Vista para gestionar roles y asignación de permisos.
- * RF: Gestión de Roles y Permisos.
- */
-@SuppressWarnings("serial")
+
 public class RolView extends JPanel implements View {
 
     private final RolController controller;

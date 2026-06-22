@@ -5,10 +5,6 @@ import core.View;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Modelo observable para la gestión de usuarios.
- * Notifica a las vistas cuando cambia el estado de los usuarios.
- */
 public class UsuarioModel implements Model {
 
     private List<View>    observers  = new ArrayList<>();

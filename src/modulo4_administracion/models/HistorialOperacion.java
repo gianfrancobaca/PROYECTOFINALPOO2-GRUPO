@@ -2,10 +2,7 @@ package modulo4_administracion.models;
 
 import java.time.LocalDateTime;
 
-/**
- * Registro de auditoría de cada operación realizada en el sistema.
- * RF: Historial de Operaciones, Seguridad y Control de Acceso.
- */
+
 public class HistorialOperacion {
 
     public enum TipoOperacion {

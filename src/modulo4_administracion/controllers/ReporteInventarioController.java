@@ -6,10 +6,7 @@ import modulo4_administracion.repositories.*;
 import modulo4_administracion.views.*;
 import java.time.LocalDate;
 
-/**
- * Controlador para la generación de reportes de inventario.
- * RF: Generación de Reportes de Inventario.
- */
+
 public class ReporteInventarioController extends Controller {
 
     private final ReporteInventarioRepository      inventarioRepo;

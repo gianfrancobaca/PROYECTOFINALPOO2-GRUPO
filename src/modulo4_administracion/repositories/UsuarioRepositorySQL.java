@@ -7,10 +7,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Implementación SQL del repositorio de usuarios.
- * Usa PreparedStatement para evitar SQL Injection.
- */
 public class UsuarioRepositorySQL implements UsuarioRepository {
 
     private final Connection conn = DatabaseConnection.getInstance().getConnection();

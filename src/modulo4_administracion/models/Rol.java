@@ -3,10 +3,6 @@ package modulo4_administracion.models;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Define el rol de un usuario dentro del sistema.
- * RF: Gestión de Roles y Permisos.
- */
 public class Rol {
 
     private int    id;

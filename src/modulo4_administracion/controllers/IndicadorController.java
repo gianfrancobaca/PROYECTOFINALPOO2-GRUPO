@@ -6,10 +6,7 @@ import modulo4_administracion.repositories.*;
 import modulo4_administracion.views.*;
 import java.time.LocalDate;
 
-/**
- * Controlador para el dashboard de indicadores administrativos.
- * RF: Consulta de Indicadores Administrativos.
- */
+
 public class IndicadorController extends Controller {
 
     private final ReporteVentaRepository      ventaRepo;

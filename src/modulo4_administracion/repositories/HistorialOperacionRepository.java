@@ -4,10 +4,6 @@ import modulo4_administracion.models.HistorialOperacion;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Contrato del repositorio del historial de operaciones.
- * RF: Historial de Operaciones.
- */
 public interface HistorialOperacionRepository {
     HistorialOperacion         buscarPorId(int id);
     List<HistorialOperacion>   buscarTodos();

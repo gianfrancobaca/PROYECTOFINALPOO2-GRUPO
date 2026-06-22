@@ -3,10 +3,6 @@ package modulo4_administracion.models;
 // ─── File: src/models/Usuario.java ───
 import java.time.LocalDateTime;
 
-/**
- * Representa un usuario administrador del sistema.
- * RF: Gestión de Usuarios, Seguridad y Control de Acceso.
- */
 public class Usuario {
 
     private int    id;

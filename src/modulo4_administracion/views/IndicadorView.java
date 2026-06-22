@@ -7,11 +7,7 @@ import modulo4_administracion.models.IndicadorAdministrativo;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Dashboard de indicadores administrativos (KPIs) del negocio.
- * RF: Consulta de Indicadores Administrativos.
- */
-@SuppressWarnings("serial")
+
 public class IndicadorView extends JPanel implements View {
 
     private final IndicadorController controller;

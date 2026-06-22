@@ -2,10 +2,7 @@ package modulo4_administracion.models;
 
 import java.time.LocalDate;
 
-/**
- * Snapshot de los KPIs principales del negocio.
- * RF: Consulta de Indicadores Administrativos.
- */
+
 public class IndicadorAdministrativo {
 
     private LocalDate fecha;

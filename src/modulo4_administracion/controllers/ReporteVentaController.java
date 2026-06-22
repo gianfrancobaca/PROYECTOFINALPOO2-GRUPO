@@ -6,10 +6,7 @@ import modulo4_administracion.repositories.*;
 import modulo4_administracion.views.*;
 import java.time.LocalDate;
 
-/**
- * Controlador para la generación de reportes de ventas.
- * RF: Generación de Reportes de Ventas.
- */
+
 public class ReporteVentaController extends Controller {
 
     private final ReporteVentaRepository           reporteRepo;

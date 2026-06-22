@@ -5,10 +5,6 @@ import modulo4_administracion.models.ReporteVenta;
 import java.sql.*;
 import java.time.LocalDate;
 
-/**
- * Implementación SQL del repositorio de reportes de ventas.
- * Realiza consultas de agregación sobre la tabla de ventas.
- */
 public class ReporteVentaRepositorySQL implements ReporteVentaRepository {
 
     private final Connection conn = DatabaseConnection.getInstance().getConnection();

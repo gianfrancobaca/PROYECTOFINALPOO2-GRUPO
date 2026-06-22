@@ -5,9 +5,6 @@ import modulo4_administracion.models.ReporteInventario;
 import java.sql.*;
 import java.time.LocalDate;
 
-/**
- * Implementación SQL del repositorio de reportes de inventario.
- */
 public class ReporteInventarioRepositorySQL implements ReporteInventarioRepository {
 
     private final Connection conn = DatabaseConnection.getInstance().getConnection();

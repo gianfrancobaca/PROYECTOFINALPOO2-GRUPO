@@ -9,11 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-/**
- * Vista que lista todos los usuarios del sistema con opciones CRUD.
- * RF: Gestión de Usuarios.
- */
-@SuppressWarnings("serial")
+
 public class UsuarioListView extends JPanel implements View {
 
     private final UsuarioController controller;

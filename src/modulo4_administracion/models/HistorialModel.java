@@ -5,10 +5,7 @@ import core.View;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Modelo observable para el historial de operaciones (auditoría).
- * RF: Historial de Operaciones.
- */
+
 public class HistorialModel implements Model {
 
     private List<View>               observers  = new ArrayList<>();

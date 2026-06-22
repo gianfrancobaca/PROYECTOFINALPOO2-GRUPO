@@ -2,10 +2,6 @@ package modulo4_administracion.models;
 
 import java.time.LocalDate;
 
-/**
- * Datos del reporte de actividad de clientes.
- * RF: Reportes de Clientes.
- */
 public class ReporteCliente {
 
     private LocalDate fechaGeneracion;

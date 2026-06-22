@@ -5,10 +5,6 @@ import core.View;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Modelo observable para la generación y consulta de reportes.
- * Notifica a las vistas cuando se genera un nuevo reporte.
- */
 public class ReporteModel implements Model {
 
     private List<View> observers = new ArrayList<>();

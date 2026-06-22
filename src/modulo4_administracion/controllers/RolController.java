@@ -6,10 +6,7 @@ import modulo4_administracion.repositories.*;
 import modulo4_administracion.views.*;
 import java.util.List;
 
-/**
- * Controlador de gestión de roles y permisos.
- * RF: Gestión de Roles y Permisos.
- */
+
 public class RolController extends Controller {
 
     private final RolRepository     rolRepo;

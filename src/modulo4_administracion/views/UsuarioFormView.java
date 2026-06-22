@@ -8,11 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-/**
- * Formulario para crear o editar un usuario del sistema.
- * RF: Gestión de Usuarios.
- */
-@SuppressWarnings("serial")
+
 public class UsuarioFormView extends JPanel implements View {
 
     private final UsuarioController controller;

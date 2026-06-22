@@ -2,11 +2,6 @@ package modulo4_administracion.models;
 
 import java.time.LocalDateTime;
 
-/**
- * Representa la sesión activa de un usuario autenticado.
- * RF: Seguridad y Control de Acceso.
- * Implementada como Singleton para garantizar una sola sesión activa.
- */
 public class SesionUsuario {
 
     private static SesionUsuario instancia;

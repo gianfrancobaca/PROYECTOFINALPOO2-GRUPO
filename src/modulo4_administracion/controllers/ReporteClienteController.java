@@ -6,10 +6,7 @@ import modulo4_administracion.repositories.*;
 import modulo4_administracion.views.*;
 import java.time.LocalDate;
 
-/**
- * Controlador para reportes de clientes.
- * RF: Reportes de Clientes.
- */
+
 public class ReporteClienteController extends Controller {
 
     private final ReporteClienteRepository         clienteRepo;
