@@ -2,7 +2,6 @@ package modulo4_administracion.models;
 
 import java.time.LocalDateTime;
 
-
 public class HistorialOperacion {
 
     public enum TipoOperacion {

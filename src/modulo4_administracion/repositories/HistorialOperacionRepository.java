@@ -4,6 +4,7 @@ import modulo4_administracion.models.HistorialOperacion;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 public interface HistorialOperacionRepository {
     HistorialOperacion         buscarPorId(int id);
     List<HistorialOperacion>   buscarTodos();

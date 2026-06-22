@@ -3,6 +3,7 @@ package modulo4_administracion.models;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Rol {
 
     private int    id;

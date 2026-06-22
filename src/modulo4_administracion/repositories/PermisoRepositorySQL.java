@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class PermisoRepositorySQL implements PermisoRepository {
 
     private final Connection conn = DatabaseConnection.getInstance().getConnection();

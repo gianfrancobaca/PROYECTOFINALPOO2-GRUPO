@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class HistorialOperacionRepositorySQL implements HistorialOperacionRepository {
 
     private final Connection conn = DatabaseConnection.getInstance().getConnection();

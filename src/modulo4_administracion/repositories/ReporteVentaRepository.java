@@ -3,6 +3,7 @@ package modulo4_administracion.repositories;
 import modulo4_administracion.models.ReporteVenta;
 import java.time.LocalDate;
 
+
 public interface ReporteVentaRepository {
     ReporteVenta generarReporte(LocalDate inicio, LocalDate fin);
     double       totalIngresosPorPeriodo(LocalDate inicio, LocalDate fin);

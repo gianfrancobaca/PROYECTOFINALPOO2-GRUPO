@@ -5,7 +5,6 @@ import core.View;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class HistorialModel implements Model {
 
     private List<View>               observers  = new ArrayList<>();

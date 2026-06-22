@@ -5,6 +5,7 @@ import modulo4_administracion.models.ReporteCliente;
 import java.sql.*;
 import java.time.LocalDate;
 
+
 public class ReporteClienteRepositorySQL implements ReporteClienteRepository {
 
     private final Connection conn = DatabaseConnection.getInstance().getConnection();

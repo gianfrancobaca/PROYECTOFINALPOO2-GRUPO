@@ -4,6 +4,7 @@ package modulo4_administracion.repositories;
 import modulo4_administracion.models.Usuario;
 import java.util.List;
 
+
 public interface UsuarioRepository {
     Usuario    buscarPorId(int id);
     Usuario    buscarPorCorreo(String correo);

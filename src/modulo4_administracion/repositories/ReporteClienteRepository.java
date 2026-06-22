@@ -3,6 +3,7 @@ package modulo4_administracion.repositories;
 import modulo4_administracion.models.ReporteCliente;
 import java.time.LocalDate;
 
+
 public interface ReporteClienteRepository {
     ReporteCliente generarReporte(LocalDate inicio, LocalDate fin);
     int            contarClientesNuevos(LocalDate inicio, LocalDate fin);

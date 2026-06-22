@@ -1,6 +1,6 @@
 package modulo4_administracion.models;
 
-// ─── File: src/models/Usuario.java ───
+
 import java.time.LocalDateTime;
 
 public class Usuario {

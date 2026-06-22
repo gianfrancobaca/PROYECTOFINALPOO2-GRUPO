@@ -1,6 +1,5 @@
 package modulo4_administracion.models;
 
-
 public class Permiso {
 
     private int    id;

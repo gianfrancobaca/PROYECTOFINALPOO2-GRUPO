@@ -2,6 +2,7 @@ package modulo4_administracion.models;
 
 import java.time.LocalDate;
 
+
 public class ReporteCliente {
 
     private LocalDate fechaGeneracion;

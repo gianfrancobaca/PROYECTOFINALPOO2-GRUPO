@@ -3,6 +3,7 @@ package modulo4_administracion.repositories;
 import modulo4_administracion.models.Permiso;
 import java.util.List;
 
+
 public interface PermisoRepository {
     Permiso         buscarPorId(int id);
     List<Permiso>   buscarTodos();
