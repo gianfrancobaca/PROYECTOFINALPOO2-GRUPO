@@ -16,3 +16,32 @@ public class DetallePedido {
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
     }
+
+    public int getIdDetalle() { return idDetalle; }
+    public void setIdDetalle(int idDetalle) { this.idDetalle = idDetalle; }
+
+    public int getIdPedido() { return idPedido; }
+    public void setIdPedido(int idPedido) { this.idPedido = idPedido; }
+
+    public String getProducto() { return producto; }
+    public void setProducto(String producto) { this.producto = producto; }
+
+    public int getCantidad() { return cantidad; }
+    public void setCantidad(int cantidad) { this.cantidad = cantidad; }
+
+    public double getPrecioUnitario() { return precioUnitario; }
+    public void setPrecioUnitario(double precioUnitario) { this.precioUnitario = precioUnitario; }
+
+    public double getSubtotal() { return cantidad * precioUnitario; }
+
+    @Override
+    public String toString() {
+        return "DetallePedido{" +
+                "idDetalle=" + idDetalle +
+                ", producto='" + producto + '\'' +
+                ", cantidad=" + cantidad +
+                ", precioUnitario=" + precioUnitario +
+                ", subtotal=" + getSubtotal() +
+                '}';
+    }
+}
