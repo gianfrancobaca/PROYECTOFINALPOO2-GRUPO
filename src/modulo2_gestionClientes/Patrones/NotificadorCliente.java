@@ -1,23 +1,36 @@
 package modulo2_gestionClientes.Patrones;
 
-import modulo2_gestionClientes.models.Cliente;
-import modulo2_gestionClientes.models.Notificacion;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-public class NotificacionFactory {
+public class NotificadorCliente {
 
-    public static Notificacion crear(String tipo, Cliente cliente) {
-        switch (tipo.toUpperCase()) {
-            case "BIENVENIDA":
-                return new Notificacion(0, "Bienvenido a nuestro sistema, " + cliente.getNombre(), "BIENVENIDA", new Date(), false, cliente);
-            case "PEDIDO":
-                return new Notificacion(0, "Tu pedido ha sido registrado exitosamente", "PEDIDO", new Date(), false, cliente);
-            case "PAGO":
-                return new Notificacion(0, "Tu pago ha sido procesado correctamente", "PAGO", new Date(), false, cliente);
-            case "RECLAMO":
-                return new Notificacion(0, "Tu reclamo ha sido recibido y sera atendido pronto", "RECLAMO", new Date(), false, cliente);
-            default:
-                return new Notificacion(0, "Tienes una nueva notificacion", "GENERAL", new Date(), false, cliente);
+    private static NotificadorCliente instance;
+    private List<ClienteObserver> observadores;
+
+    private NotificadorCliente() {
+        this.observadores = new ArrayList<>();
+    }
+
+    public static NotificadorCliente getInstance() {
+        if (instance == null) {
+            instance = new NotificadorCliente();
+        }
+        return instance;
+    }
+
+    public void suscribir(ClienteObserver observer) {
+        observadores.add(observer);
+    }
+
+    public void desuscribir(ClienteObserver observer) {
+        observadores.remove(observer);
+    }
+
+    public void notificar(String evento, Object dato) {
+        for (ClienteObserver observer : observadores) {
+            observer.actualizar(evento, dato);
         }
     }
 }
+

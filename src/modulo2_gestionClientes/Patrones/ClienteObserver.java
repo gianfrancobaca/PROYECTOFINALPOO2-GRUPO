@@ -1,4 +1,5 @@
 package modulo2_gestionClientes.Patrones;
 
-public class ClienteObserver {
+public interface ClienteObserver {
+    void actualizar(String evento, Object dato);
 }
