@@ -1,4 +1,4 @@
 package modulo2_gestionClientes.controllers;
 
-public class ClienteController {
+public class CategoriaClienteController {
 }
