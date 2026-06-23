@@ -1,4 +1,4 @@
 package modulo2_gestionClientes.views;
 
-public class clientes123 {
+public class NotificacionView {
 }
