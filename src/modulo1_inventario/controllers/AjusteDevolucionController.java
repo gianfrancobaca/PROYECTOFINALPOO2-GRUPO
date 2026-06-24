@@ -1,7 +1,6 @@
 package modulo1_inventario.controllers;
 
 import core.Controller;
-import modulo1_inventario.exceptions.StockInsuficienteException;
 import modulo1_inventario.models.*;
 import modulo1_inventario.repositories.*;
 import java.time.LocalDateTime;
@@ -72,7 +71,8 @@ public class AjusteDevolucionController extends Controller {
             Producto producto = productoRepo.buscarPorId(dd.getProductoId());
             if (producto == null) continue;
             if (!producto.tieneStockSuficiente(dd.getCantidad()))
-                throw new StockInsuficienteException(producto.getStockActual(), dd.getCantidad());
+                throw new IllegalArgumentException("Stock insuficiente. Disponible: "
+                        + producto.getStockActual() + ", Solicitado: " + dd.getCantidad());
             int stockAnterior = producto.getStockActual();
             producto.reducirStock(dd.getCantidad());
             productoRepo.actualizar(producto);

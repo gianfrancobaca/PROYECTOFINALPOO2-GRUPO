@@ -29,7 +29,7 @@ public class ProductoController extends Controller {
 
     public void registrar(Producto producto) {
         if (productoRepo.buscarPorCodigo(producto.getCodigo()) != null)
-            throw new ProductoDuplicadoException(producto.getCodigo());
+            throw new IllegalArgumentException("Ya existe un producto con el código: " + producto.getCodigo());
         productoRepo.guardar(producto);
     }
 
