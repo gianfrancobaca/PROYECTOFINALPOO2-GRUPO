@@ -47,4 +47,8 @@ public abstract class Controller {
     public static JFrame getMainFrame() {
         return mainFrame;
     }
+
+    public static JPanel getViewsViewer() {
+        return viewsViewer;
+    }
 }

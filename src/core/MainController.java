@@ -101,6 +101,7 @@ public class MainController extends Controller {
 
         mainFrame.setLayout(new BorderLayout());
         mainFrame.add(sidebar, BorderLayout.WEST);
+        mainFrame.add(getViewsViewer(), BorderLayout.CENTER);
     }
 
     private JButton crearBotonNav(String texto, String vistaKey) {
