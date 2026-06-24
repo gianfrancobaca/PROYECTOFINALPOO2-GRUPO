@@ -1,5 +1,5 @@
-
 import modulo2_gestionClientes.views.LoginView;
+import core.MainController;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,7 +9,15 @@ public class Main {
             );
         } catch (Exception ignored) {}
 
-        LoginView loginView = new LoginView();
-        loginView.mostrarLogin();
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            LoginView loginView = new LoginView();
+            boolean ok = loginView.mostrarLogin();
+            if (ok) {
+                MainController mainCtrl = new MainController();
+                mainCtrl.run();
+            } else {
+                System.exit(0);
+            }
+        });
     }
 }
