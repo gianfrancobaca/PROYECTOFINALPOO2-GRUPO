@@ -45,29 +45,57 @@ public class ProductoFormPanel extends JPanel {
 
     private void construirUI() {
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(4,4,4,4); gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(4, 4, 4, 4);
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+
         Object[][] campos = {
-            {"Código:",       campoCodigo},      {"Nombre:",      campoNombre},
-            {"Descripción:",  campoDescripcion}, {"Categoría:",   comboCategoria},
-            {"P. Compra:",    campoPrecioCompra},{"P. Venta:",    campoPrecioVenta},
-            {"Stock Actual:", campoStockActual}, {"Stock Mínimo:",campoStockMinimo}
+                {"Código:", campoCodigo},
+                {"Nombre:", campoNombre},
+                {"Descripción:", campoDescripcion},
+                {"Categoría:", comboCategoria},
+                {"P. Compra:", campoPrecioCompra},
+                {"P. Venta:", campoPrecioVenta},
+                {"Stock Actual:", campoStockActual},
+                {"Stock Mínimo:", campoStockMinimo}
         };
+
         for (int i = 0; i < campos.length; i++) {
-            gbc.gridx=0; gbc.gridy=i; add(new JLabel((String)campos[i][0]), gbc);
-            gbc.gridx=1; add((Component)campos[i][1], gbc);
+            gbc.gridx = 0;
+            gbc.gridy = i;
+            gbc.weightx = 0;
+            gbc.fill = GridBagConstraints.NONE;
+            add(new JLabel((String) campos[i][0]), gbc);
+
+            gbc.gridx = 1;
+            gbc.weightx = 1.0;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            add((Component) campos[i][1], gbc);
         }
-        JPanel btnPanel = new JPanel(new FlowLayout());
-        JButton btnGuardar  = new JButton("Guardar");
+
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton btnGuardar = new JButton("Guardar");
         JButton btnActualizar = new JButton("Actualizar");
         JButton btnEliminar = new JButton("Desactivar");
-        JButton btnLimpiar  = new JButton("Limpiar");
-        btnPanel.add(btnGuardar); btnPanel.add(btnActualizar);
-        btnPanel.add(btnEliminar); btnPanel.add(btnLimpiar);
-        btnGuardar.addActionListener(e   -> guardar());
+        JButton btnLimpiar = new JButton("Limpiar");
+
+        btnPanel.add(btnGuardar);
+        btnPanel.add(btnActualizar);
+        btnPanel.add(btnEliminar);
+        btnPanel.add(btnLimpiar);
+
+        btnGuardar.addActionListener(e -> guardar());
         btnActualizar.addActionListener(e -> actualizar());
-        btnEliminar.addActionListener(e  -> desactivar());
-        btnLimpiar.addActionListener(e   -> limpiar());
-        gbc.gridx=0; gbc.gridy=campos.length; gbc.gridwidth=2; add(btnPanel, gbc);
+        btnEliminar.addActionListener(e -> desactivar());
+        btnLimpiar.addActionListener(e -> limpiar());
+
+        gbc.gridx = 0;
+        gbc.gridy = campos.length;
+        gbc.gridwidth = 2;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(btnPanel, gbc);
     }
 
     private void cargarCategorias() {
