@@ -161,6 +161,7 @@ public class ProductoFormPanel extends JPanel {
         p.setNombre(campoNombre.getText().trim());
         p.setDescripcion(campoDescripcion.getText().trim());
         p.setCategoriaNombre((String) comboCategoria.getSelectedItem());
+        p.setCategoriaId(comboCategoria.getSelectedIndex() + 1);
         p.setPrecioCompra(Double.parseDouble(campoPrecioCompra.getText().trim()));
         p.setPrecioVenta(Double.parseDouble(campoPrecioVenta.getText().trim()));
         p.setStockActual(Integer.parseInt(campoStockActual.getText().trim()));
