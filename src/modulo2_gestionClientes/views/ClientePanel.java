@@ -103,21 +103,32 @@ public class ClientePanel extends JPanel implements View{
             JOptionPane.showMessageDialog(this, "El nombre es obligatorio.");
             return;
         }
+        CategoriaCliente categoria = new CategoriaCliente(
+                1,
+                "Regular",
+                "Cliente regular",
+                0.00
+        );
+
         Cliente c = new Cliente(0, txtNombre.getText().trim(),
                 txtApellido.getText().trim(), txtEmail.getText().trim(),
-                txtDireccion.getText().trim(), null);
-        controller.agregar(c);
-        cargarTabla();
-        limpiarFormulario();
+                txtDireccion.getText().trim(), categoria);
     }
 
     private void actualizarCliente() {
         int fila = tabla.getSelectedRow();
         if (fila < 0) { JOptionPane.showMessageDialog(this, "Seleccione un cliente."); return; }
         int id = (int) tableModel.getValueAt(fila, 0);
+        CategoriaCliente categoria = new CategoriaCliente(
+                1,
+                "Regular",
+                "Cliente regular",
+                0.00
+        );
+
         Cliente c = new Cliente(id, txtNombre.getText().trim(),
                 txtApellido.getText().trim(), txtEmail.getText().trim(),
-                txtDireccion.getText().trim(), null);
+                txtDireccion.getText().trim(), categoria);
         controller.actualizar(c);
         cargarTabla();
         limpiarFormulario();
