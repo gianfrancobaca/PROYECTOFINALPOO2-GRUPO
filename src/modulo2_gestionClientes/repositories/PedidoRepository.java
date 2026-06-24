@@ -3,7 +3,7 @@ package modulo2_gestionClientes.repositories;
 import modulo2_gestionClientes.interfaces.IPedidoRepository;
 import modulo2_gestionClientes.models.Cliente;
 import modulo2_gestionClientes.models.Pedido;
-import modulo2_gestionClientes.patterns.singleton.DatabaseConnection;
+import modulo2_gestionClientes.Patrones.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;

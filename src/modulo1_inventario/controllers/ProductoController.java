@@ -1,7 +1,6 @@
 package modulo1_inventario.controllers;
 
 import core.Controller;
-import modulo1_inventario.exceptions.ProductoDuplicadoException;
 import modulo1_inventario.models.Categoria;
 import modulo1_inventario.models.Producto;
 import modulo1_inventario.repositories.*;

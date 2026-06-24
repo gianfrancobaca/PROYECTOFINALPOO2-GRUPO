@@ -9,7 +9,7 @@ public class DatabaseConnection {
     private static DatabaseConnection instance;
     private Connection connection;
 
-    private static final String URL = "jdbc:mysql://localhost:3306/gestion_clientes";
+    private static final String URL = "jdbc:mysql://localhost:3306/trapos_y_sedas";
     private static final String USER = "root";
     private static final String PASSWORD = "";
 

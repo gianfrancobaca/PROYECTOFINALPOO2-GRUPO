@@ -1,7 +1,7 @@
 package modulo2_gestionClientes.repositories;
 
 import modulo2_gestionClientes.models.Factura;
-import modulo2_gestionClientes.patterns.singleton.DatabaseConnection;
+import modulo2_gestionClientes.Patrones.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
