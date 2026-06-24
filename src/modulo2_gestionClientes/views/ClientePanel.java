@@ -113,6 +113,10 @@ public class ClientePanel extends JPanel implements View{
         Cliente c = new Cliente(0, txtNombre.getText().trim(),
                 txtApellido.getText().trim(), txtEmail.getText().trim(),
                 txtDireccion.getText().trim(), categoria);
+
+        controller.agregar(c);
+        cargarTabla();
+        limpiarFormulario();
     }
 
     private void actualizarCliente() {

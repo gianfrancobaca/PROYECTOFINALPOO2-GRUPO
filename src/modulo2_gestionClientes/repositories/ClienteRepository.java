@@ -23,7 +23,9 @@ public class ClienteRepository {
             ps.setString(3, cliente.getEmail());
             ps.setString(4, cliente.getDireccion());
             ps.setInt(5, cliente.getCategoria().getIdCategoria());
-            ps.executeUpdate();
+            int filas = ps.executeUpdate();
+            System.out.println("Clientes insertados: " + filas);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
