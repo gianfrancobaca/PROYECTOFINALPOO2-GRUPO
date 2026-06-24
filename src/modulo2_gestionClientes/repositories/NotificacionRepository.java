@@ -2,8 +2,7 @@ package modulo2_gestionClientes.repositories;
 
 import modulo2_gestionClientes.interfaces.INotificacion;
 import modulo2_gestionClientes.models.Notificacion;
-import modulo2_gestionClientes.Patrones.DatabaseConnection;
-
+import database.DatabaseConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
