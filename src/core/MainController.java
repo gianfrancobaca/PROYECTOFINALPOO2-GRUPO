@@ -8,6 +8,7 @@ import modulo2_gestionClientes.controllers.ReclamoController;
 import modulo2_gestionClientes.controllers.FacturaController;
 import modulo2_gestionClientes.views.*;
 import modulo1_inventario.views.InventarioView;
+import modulo3_ventas.views.VentasView;
 import core.View;
 
 import javax.swing.*;
@@ -30,7 +31,7 @@ public class MainController extends Controller {
         InventarioView   inventarioView   = new InventarioView(inventarioCtrl);
         ClientePanel     clientePanel     = new ClientePanel(clienteCtrl);
         FacturaPanel     facturaPanel     = new FacturaPanel(facturaCtrl);
-        VentasPlaceholder ventasPanel     = new VentasPlaceholder();
+        VentasView        ventasPanel      = new VentasView();
 
         addView("Inventario",  inventarioView);
         addView("Clientes",    clientePanel);
