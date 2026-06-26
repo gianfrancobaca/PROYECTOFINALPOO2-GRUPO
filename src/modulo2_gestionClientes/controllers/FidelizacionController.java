@@ -28,4 +28,8 @@ public class FidelizacionController {
     public List<ProgramaFidelizacion> listarPorCliente(int idCliente) {
         return repository.listarPorCliente(idCliente);
     }
+
+    public List<ProgramaFidelizacion> listarTodos() {
+        return repository.listarTodos();
+    }
 }
