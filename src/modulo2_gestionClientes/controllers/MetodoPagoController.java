@@ -28,4 +28,4 @@ public class MetodoPagoController {
     public List<MetodoPago> listarPorCliente(int idCliente) {
         return repository.listarPorCliente(idCliente);
     }
-}
+} 
