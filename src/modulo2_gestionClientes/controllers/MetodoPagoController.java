@@ -25,7 +25,15 @@ public class MetodoPagoController {
         repository.eliminar(idMetodoPago);
     }
 
+    public MetodoPago buscarPorId(int idMetodoPago) {
+        return repository.buscarPorId(idMetodoPago);
+    }
+
+    public List<MetodoPago> listarTodos() {
+        return repository.listarTodos();
+    }
+
     public List<MetodoPago> listarPorCliente(int idCliente) {
         return repository.listarPorCliente(idCliente);
     }
-} 
+}
