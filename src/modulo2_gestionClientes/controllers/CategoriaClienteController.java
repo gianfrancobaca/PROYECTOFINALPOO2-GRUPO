@@ -14,8 +14,14 @@ public class CategoriaClienteController {
         this.repository = new CategoriaClienteRepository();
     }
 
+    // Mantiene el Factory
     public void agregar(String tipo) {
         CategoriaCliente categoria = CategoriaClienteFactory.crear(tipo);
+        repository.agregar(categoria);
+    }
+
+    // Nuevo método para los paneles Swing
+    public void agregar(CategoriaCliente categoria) {
         repository.agregar(categoria);
     }
 
@@ -34,4 +40,4 @@ public class CategoriaClienteController {
     public List<CategoriaCliente> listarTodos() {
         return repository.listarTodos();
     }
-}
+} 

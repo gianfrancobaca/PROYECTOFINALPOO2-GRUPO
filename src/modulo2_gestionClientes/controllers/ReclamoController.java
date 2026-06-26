@@ -39,4 +39,8 @@ public class ReclamoController {
     public List<Reclamo> listarPorCliente(int idCliente) {
         return repository.listarPorCliente(idCliente);
     }
+
+    public List<Reclamo> listarTodos() {
+        return repository.listarTodos();
+    }
 }

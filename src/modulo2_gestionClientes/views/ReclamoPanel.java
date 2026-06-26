@@ -1,87 +1,178 @@
 package modulo2_gestionClientes.views;
 
+import modulo2_gestionClientes.controllers.ReclamoController;
+import modulo2_gestionClientes.models.Cliente;
+import modulo2_gestionClientes.models.Reclamo;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.Date;
+import java.util.List;
 
 public class ReclamoPanel extends JPanel {
 
-    private JTable tablaReclamos;
-    private DefaultTableModel modeloTabla;
-    private JTextField txtCliente;
-    private JTextArea txtReclamo;
+    private ReclamoController controller;
+    private JTable tabla;
+    private DefaultTableModel modelo;
+    private JTextField txtIdCliente;
+    private JTextArea txtMotivo;
+    private JTextField txtEstado;
 
-    public ReclamoPanel() {
+    public ReclamoPanel(ReclamoController controller) {
+        this.controller = controller;
         setLayout(new BorderLayout());
 
         JLabel titulo = new JLabel("Gestión de Reclamos");
         titulo.setFont(new Font("SansSerif", Font.BOLD, 18));
         titulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        modeloTabla = new DefaultTableModel(
-                new Object[]{"ID", "Cliente", "Reclamo"}, 0
-        );
+        modelo = new DefaultTableModel(new Object[]{"ID", "ID Cliente", "Motivo", "Estado", "Fecha"}, 0);
+        tabla = new JTable(modelo);
 
-        tablaReclamos = new JTable(modeloTabla);
-        JScrollPane scrollTabla = new JScrollPane(tablaReclamos);
+        JPanel form = new JPanel();
+        form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
+        form.setBorder(BorderFactory.createTitledBorder("Datos del Reclamo"));
+        form.setPreferredSize(new Dimension(320, 0));
 
-        JPanel panelDerecho = new JPanel();
-        panelDerecho.setLayout(new BoxLayout(panelDerecho, BoxLayout.Y_AXIS));
-        panelDerecho.setBorder(BorderFactory.createTitledBorder("Datos del Reclamo"));
-        panelDerecho.setPreferredSize(new Dimension(300, 0));
-
-        txtCliente = new JTextField();
-        txtReclamo = new JTextArea(6, 20);
-        txtReclamo.setLineWrap(true);
-        txtReclamo.setWrapStyleWord(true);
+        txtIdCliente = new JTextField();
+        txtMotivo = new JTextArea(6, 20);
+        txtMotivo.setLineWrap(true);
+        txtMotivo.setWrapStyleWord(true);
+        txtEstado = new JTextField("Pendiente");
 
         JButton btnAgregar = new JButton("Registrar Reclamo");
-        JButton btnEliminar = new JButton("Eliminar Reclamo");
+        JButton btnActualizar = new JButton("Actualizar");
+        JButton btnEliminar = new JButton("Eliminar");
 
-        panelDerecho.add(new JLabel("Cliente:"));
-        panelDerecho.add(txtCliente);
-        panelDerecho.add(Box.createVerticalStrut(10));
+        form.add(new JLabel("ID Cliente:"));
+        form.add(txtIdCliente);
+        form.add(Box.createVerticalStrut(10));
 
-        panelDerecho.add(new JLabel("Reclamo:"));
-        panelDerecho.add(new JScrollPane(txtReclamo));
-        panelDerecho.add(Box.createVerticalStrut(20));
+        form.add(new JLabel("Reclamo / Motivo:"));
+        form.add(new JScrollPane(txtMotivo));
+        form.add(Box.createVerticalStrut(10));
 
-        panelDerecho.add(btnAgregar);
-        panelDerecho.add(Box.createVerticalStrut(8));
-        panelDerecho.add(btnEliminar);
+        form.add(new JLabel("Estado:"));
+        form.add(txtEstado);
+        form.add(Box.createVerticalStrut(20));
+
+        form.add(btnAgregar);
+        form.add(Box.createVerticalStrut(8));
+        form.add(btnActualizar);
+        form.add(Box.createVerticalStrut(8));
+        form.add(btnEliminar);
 
         add(titulo, BorderLayout.NORTH);
-        add(scrollTabla, BorderLayout.CENTER);
-        add(panelDerecho, BorderLayout.EAST);
+        add(new JScrollPane(tabla), BorderLayout.CENTER);
+        add(form, BorderLayout.EAST);
 
-        btnAgregar.addActionListener(e -> agregarReclamo());
-        btnEliminar.addActionListener(e -> eliminarReclamo());
+        cargarTabla();
+
+        btnAgregar.addActionListener(e -> agregar());
+        btnActualizar.addActionListener(e -> actualizar());
+        btnEliminar.addActionListener(e -> eliminar());
+
+        tabla.getSelectionModel().addListSelectionListener(e -> cargarSeleccion());
     }
 
-    private void agregarReclamo() {
-        String cliente = txtCliente.getText();
-        String reclamo = txtReclamo.getText();
+    private void cargarTabla() {
+        modelo.setRowCount(0);
 
-        if (cliente.isEmpty() || reclamo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Completa cliente y reclamo.");
-            return;
+        List<Reclamo> reclamos = controller.listarTodos();
+
+        for (Reclamo r : reclamos) {
+            modelo.addRow(new Object[]{
+                    r.getIdReclamo(),
+                    r.getCliente() != null ? r.getCliente().getIdCliente() : "",
+                    r.getMotivo(),
+                    r.getEstado(),
+                    r.getFecha()
+            });
         }
-
-        int id = modeloTabla.getRowCount() + 1;
-        modeloTabla.addRow(new Object[]{id, cliente, reclamo});
-
-        txtCliente.setText("");
-        txtReclamo.setText("");
     }
 
-    private void eliminarReclamo() {
-        int fila = tablaReclamos.getSelectedRow();
+    private void cargarSeleccion() {
+        int fila = tabla.getSelectedRow();
+
+        if (fila >= 0) {
+            txtIdCliente.setText(tabla.getValueAt(fila, 1).toString());
+            txtMotivo.setText(tabla.getValueAt(fila, 2).toString());
+            txtEstado.setText(tabla.getValueAt(fila, 3).toString());
+        }
+    }
+
+    private void agregar() {
+        try {
+            Cliente cliente = new Cliente();
+            cliente.setIdCliente(Integer.parseInt(txtIdCliente.getText()));
+
+            Reclamo reclamo = new Reclamo(
+                    0,
+                    txtMotivo.getText(),
+                    txtEstado.getText(),
+                    new Date(),
+                    cliente
+            );
+
+            controller.agregar(reclamo);
+            cargarTabla();
+            limpiarCampos();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al registrar reclamo.");
+        }
+    }
+
+    private void actualizar() {
+        int fila = tabla.getSelectedRow();
 
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Selecciona un reclamo para eliminar.");
+            JOptionPane.showMessageDialog(this, "Selecciona un reclamo.");
             return;
         }
 
-        modeloTabla.removeRow(fila);
+        try {
+            int idReclamo = Integer.parseInt(tabla.getValueAt(fila, 0).toString());
+
+            Cliente cliente = new Cliente();
+            cliente.setIdCliente(Integer.parseInt(txtIdCliente.getText()));
+
+            Reclamo reclamo = new Reclamo(
+                    idReclamo,
+                    txtMotivo.getText(),
+                    txtEstado.getText(),
+                    new Date(),
+                    cliente
+            );
+
+            controller.actualizar(reclamo);
+            cargarTabla();
+            limpiarCampos();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar reclamo.");
+        }
+    }
+
+    private void eliminar() {
+        int fila = tabla.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona un reclamo.");
+            return;
+        }
+
+        int id = Integer.parseInt(tabla.getValueAt(fila, 0).toString());
+
+        controller.eliminar(id);
+        cargarTabla();
+        limpiarCampos();
+    }
+
+    private void limpiarCampos() {
+        txtIdCliente.setText("");
+        txtMotivo.setText("");
+        txtEstado.setText("Pendiente");
     }
 }
