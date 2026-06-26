@@ -28,6 +28,18 @@ public class CategoriaClientePanel extends JPanel {
         modelo = new DefaultTableModel(new Object[]{"ID", "Nombre", "Descripción", "Descuento"}, 0);
         tabla = new JTable(modelo);
 
+        JPanel form = crearFormulario();
+
+        add(titulo, BorderLayout.NORTH);
+        add(new JScrollPane(tabla), BorderLayout.CENTER);
+        add(form, BorderLayout.EAST);
+
+        cargarTabla();
+
+        tabla.getSelectionModel().addListSelectionListener(e -> cargarSeleccion());
+    }
+
+    private JPanel crearFormulario() {
         JPanel form = new JPanel();
         form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
         form.setBorder(BorderFactory.createTitledBorder("Datos de Categoría"));
@@ -59,17 +71,11 @@ public class CategoriaClientePanel extends JPanel {
         form.add(Box.createVerticalStrut(8));
         form.add(btnEliminar);
 
-        add(titulo, BorderLayout.NORTH);
-        add(new JScrollPane(tabla), BorderLayout.CENTER);
-        add(form, BorderLayout.EAST);
-
-        cargarTabla();
-
         btnAgregar.addActionListener(e -> agregar());
         btnActualizar.addActionListener(e -> actualizar());
         btnEliminar.addActionListener(e -> eliminar());
 
-        tabla.getSelectionModel().addListSelectionListener(e -> cargarSeleccion());
+        return form;
     }
 
     private void cargarTabla() {
@@ -111,7 +117,7 @@ public class CategoriaClientePanel extends JPanel {
             limpiarCampos();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al agregar categoría.");
+            JOptionPane.showMessageDialog(this, "Error al agregar categoría: " + e.getMessage());
         }
     }
 
@@ -138,7 +144,7 @@ public class CategoriaClientePanel extends JPanel {
             limpiarCampos();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al actualizar categoría.");
+            JOptionPane.showMessageDialog(this, "Error al actualizar categoría: " + e.getMessage());
         }
     }
 

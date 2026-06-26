@@ -30,6 +30,18 @@ public class ReclamoPanel extends JPanel {
         modelo = new DefaultTableModel(new Object[]{"ID", "ID Cliente", "Motivo", "Estado", "Fecha"}, 0);
         tabla = new JTable(modelo);
 
+        JPanel form = crearFormulario();
+
+        add(titulo, BorderLayout.NORTH);
+        add(new JScrollPane(tabla), BorderLayout.CENTER);
+        add(form, BorderLayout.EAST);
+
+        cargarTabla();
+
+        tabla.getSelectionModel().addListSelectionListener(e -> cargarSeleccion());
+    }
+
+    private JPanel crearFormulario() {
         JPanel form = new JPanel();
         form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
         form.setBorder(BorderFactory.createTitledBorder("Datos del Reclamo"));
@@ -63,17 +75,11 @@ public class ReclamoPanel extends JPanel {
         form.add(Box.createVerticalStrut(8));
         form.add(btnEliminar);
 
-        add(titulo, BorderLayout.NORTH);
-        add(new JScrollPane(tabla), BorderLayout.CENTER);
-        add(form, BorderLayout.EAST);
-
-        cargarTabla();
-
         btnAgregar.addActionListener(e -> agregar());
         btnActualizar.addActionListener(e -> actualizar());
         btnEliminar.addActionListener(e -> eliminar());
 
-        tabla.getSelectionModel().addListSelectionListener(e -> cargarSeleccion());
+        return form;
     }
 
     private void cargarTabla() {
@@ -120,7 +126,7 @@ public class ReclamoPanel extends JPanel {
             limpiarCampos();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al registrar reclamo.");
+            JOptionPane.showMessageDialog(this, "Error al registrar reclamo: " + e.getMessage());
         }
     }
 
@@ -151,7 +157,7 @@ public class ReclamoPanel extends JPanel {
             limpiarCampos();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al actualizar reclamo.");
+            JOptionPane.showMessageDialog(this, "Error al actualizar reclamo: " + e.getMessage());
         }
     }
 
