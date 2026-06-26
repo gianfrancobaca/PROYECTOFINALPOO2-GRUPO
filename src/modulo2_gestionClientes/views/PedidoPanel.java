@@ -7,6 +7,7 @@ import modulo2_gestionClientes.models.Pedido;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,6 @@ public class PedidoPanel extends JPanel {
     private DefaultTableModel modelo;
     private JTextField txtIdCliente;
     private JTextField txtEstado;
-    private JTextField txtTotal;
 
     public PedidoPanel(PedidoController controller) {
         this.controller = controller;
@@ -27,7 +27,7 @@ public class PedidoPanel extends JPanel {
         titulo.setFont(new Font("SansSerif", Font.BOLD, 18));
         titulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        modelo = new DefaultTableModel(new Object[]{"ID", "ID Cliente", "Estado", "Total", "Fecha"}, 0);
+        modelo = new DefaultTableModel(new Object[]{"ID", "ID Cliente", "Estado", "Fecha"}, 0);
         tabla = new JTable(modelo);
 
         JPanel form = crearFormulario();
@@ -49,7 +49,6 @@ public class PedidoPanel extends JPanel {
 
         txtIdCliente = new JTextField();
         txtEstado = new JTextField("Pendiente");
-        txtTotal = new JTextField();
 
         JButton btnAgregar = new JButton("Registrar Pedido");
         JButton btnActualizar = new JButton("Actualizar");
@@ -61,10 +60,6 @@ public class PedidoPanel extends JPanel {
 
         form.add(new JLabel("Estado:"));
         form.add(txtEstado);
-        form.add(Box.createVerticalStrut(10));
-
-        form.add(new JLabel("Total:"));
-        form.add(txtTotal);
         form.add(Box.createVerticalStrut(20));
 
         form.add(btnAgregar);
@@ -90,7 +85,6 @@ public class PedidoPanel extends JPanel {
                     p.getIdPedido(),
                     p.getCliente() != null ? p.getCliente().getIdCliente() : "",
                     p.getEstado(),
-                    p.getTotal(),
                     p.getFecha()
             });
         }
@@ -102,7 +96,6 @@ public class PedidoPanel extends JPanel {
         if (fila >= 0) {
             txtIdCliente.setText(tabla.getValueAt(fila, 1).toString());
             txtEstado.setText(tabla.getValueAt(fila, 2).toString());
-            txtTotal.setText(tabla.getValueAt(fila, 3).toString());
         }
     }
 
@@ -115,8 +108,8 @@ public class PedidoPanel extends JPanel {
                     0,
                     new Date(),
                     txtEstado.getText(),
-                    Double.parseDouble(txtTotal.getText()),
-                    cliente
+                    cliente,
+                    new ArrayList<>()
             );
 
             controller.agregar(pedido);
@@ -146,8 +139,8 @@ public class PedidoPanel extends JPanel {
                     idPedido,
                     new Date(),
                     txtEstado.getText(),
-                    Double.parseDouble(txtTotal.getText()),
-                    cliente
+                    cliente,
+                    new ArrayList<>()
             );
 
             controller.actualizar(pedido);
@@ -177,6 +170,5 @@ public class PedidoPanel extends JPanel {
     private void limpiarCampos() {
         txtIdCliente.setText("");
         txtEstado.setText("Pendiente");
-        txtTotal.setText("");
     }
 }
