@@ -1,4 +1,4 @@
-package modulo2_gestionClientes.controllers;
+ppackage modulo2_gestionClientes.controllers;
 
 import modulo2_gestionClientes.Patrones.NotificacionFactory;
 import modulo2_gestionClientes.Patrones.NotificadorCliente;
