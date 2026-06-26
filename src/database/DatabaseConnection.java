@@ -14,7 +14,7 @@ public class DatabaseConnection {
 
     private static final String URL      = "jdbc:mysql://localhost:3306/trapos_y_sedas";
     private static final String USER     = "root";
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "992447190kairo";
     private static DatabaseConnection instance;
     private Connection connection;
 

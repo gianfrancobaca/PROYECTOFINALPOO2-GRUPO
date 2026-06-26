@@ -1,15 +1,12 @@
 package core;
 
 import modulo1_inventario.controllers.InventarioController;
+import modulo1_inventario.views.InventarioView;
 import modulo2_gestionClientes.Patrones.SesionUsuario;
 import modulo2_gestionClientes.controllers.ClienteController;
-import modulo2_gestionClientes.controllers.PedidoController;
-import modulo2_gestionClientes.controllers.ReclamoController;
 import modulo2_gestionClientes.controllers.FacturaController;
-import modulo2_gestionClientes.views.*;
-import modulo1_inventario.views.InventarioView;
+import modulo2_gestionClientes.views.GestionClientesPanel;
 import modulo3_ventas.views.VentasView;
-import core.View;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,28 +14,23 @@ import java.awt.*;
 public class MainController extends Controller {
 
     private InventarioController inventarioCtrl;
-    private ClienteController    clienteCtrl;
-    private FacturaController    facturaCtrl;
+    private ClienteController clienteCtrl;
+    private FacturaController facturaCtrl;
 
     @Override
     public void run() {
-        // Inicializar controladores
         inventarioCtrl = new InventarioController();
-        clienteCtrl    = new ClienteController();
-        facturaCtrl    = new FacturaController();
+        clienteCtrl = new ClienteController();
+        facturaCtrl = new FacturaController();
 
-        // Crear y registrar vistas en el CardLayout
-        InventarioView   inventarioView   = new InventarioView(inventarioCtrl);
-        ClientePanel     clientePanel     = new ClientePanel(clienteCtrl);
-        FacturaPanel     facturaPanel     = new FacturaPanel(facturaCtrl);
-        VentasView        ventasPanel      = new VentasView();
+        InventarioView inventarioView = new InventarioView(inventarioCtrl);
+        GestionClientesPanel gestionClientesPanel = new GestionClientesPanel(clienteCtrl, facturaCtrl);
+        VentasView ventasPanel = new VentasView();
 
-        addView("Inventario",  inventarioView);
-        addView("Clientes",    clientePanel);
-        addView("Facturas",    facturaPanel);
-        addView("Ventas",      ventasPanel);
+        addView("Inventario", inventarioView);
+        addView("Clientes", gestionClientesPanel);
+        addView("Ventas", ventasPanel);
 
-        // Construir el JFrame con sidebar + contenido
         construirUI();
 
         loadView("Inventario");
@@ -46,17 +38,16 @@ public class MainController extends Controller {
     }
 
     private void construirUI() {
-        // Panel lateral de navegacion
         JPanel sidebar = new JPanel();
         sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
         sidebar.setBackground(new Color(45, 52, 70));
         sidebar.setPreferredSize(new Dimension(190, 0));
         sidebar.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
 
-        // Nombre del usuario logueado
         String nombreUsuario = SesionUsuario.getInstance().getUsuarioActivo() != null
                 ? SesionUsuario.getInstance().getUsuarioActivo().getNombre()
                 : "Usuario";
+
         JLabel lblUsuario = new JLabel("  " + nombreUsuario);
         lblUsuario.setForeground(Color.WHITE);
         lblUsuario.setFont(new Font("SansSerif", Font.BOLD, 13));
@@ -67,6 +58,7 @@ public class MainController extends Controller {
         String rol = SesionUsuario.getInstance().getUsuarioActivo() != null
                 ? SesionUsuario.getInstance().getUsuarioActivo().getRol()
                 : "";
+
         JLabel lblRol = new JLabel("  " + rol);
         lblRol.setForeground(new Color(180, 180, 180));
         lblRol.setFont(new Font("SansSerif", Font.PLAIN, 11));
@@ -80,17 +72,15 @@ public class MainController extends Controller {
         sidebar.add(sep);
         sidebar.add(Box.createVerticalStrut(15));
 
-        // Botones de modulos
-        sidebar.add(crearBotonNav("Inventario",  "Inventario"));
+        sidebar.add(crearBotonNav("Inventario", "Inventario"));
         sidebar.add(Box.createVerticalStrut(8));
-        sidebar.add(crearBotonNav("Clientes",    "Clientes"));
+
+        sidebar.add(crearBotonNav("Clientes", "Clientes"));
         sidebar.add(Box.createVerticalStrut(8));
-        sidebar.add(crearBotonNav("Facturas",    "Facturas"));
-        sidebar.add(Box.createVerticalStrut(8));
-        sidebar.add(crearBotonNav("Ventas",      "Ventas"));
+
+        sidebar.add(crearBotonNav("Ventas", "Ventas"));
         sidebar.add(Box.createVerticalGlue());
 
-        // Boton cerrar sesion
         JButton btnSalir = crearBotonNav("Cerrar Sesion", null);
         btnSalir.setBackground(new Color(180, 60, 60));
         btnSalir.addActionListener(e -> {
@@ -115,9 +105,11 @@ public class MainController extends Controller {
         btn.setBorderPainted(false);
         btn.setFont(new Font("SansSerif", Font.PLAIN, 13));
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         if (vistaKey != null) {
             btn.addActionListener(e -> loadView(vistaKey));
         }
+
         return btn;
     }
 }
