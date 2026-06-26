@@ -1,8 +1,8 @@
 package modulo2_gestionClientes.controllers;
 
-import modulo2_gestionClientes.models.Reclamo;
 import modulo2_gestionClientes.Patrones.NotificacionFactory;
 import modulo2_gestionClientes.Patrones.NotificadorCliente;
+import modulo2_gestionClientes.models.Reclamo;
 import modulo2_gestionClientes.repositories.NotificacionRepository;
 import modulo2_gestionClientes.repositories.ReclamoRepository;
 
@@ -20,7 +20,11 @@ public class ReclamoController {
 
     public void agregar(Reclamo reclamo) {
         repository.agregar(reclamo);
-        notificacionRepository.enviar(NotificacionFactory.crear("RECLAMO", reclamo.getCliente()));
+
+        notificacionRepository.enviar(
+                NotificacionFactory.crear("RECLAMO", reclamo.getCliente())
+        );
+
         NotificadorCliente.getInstance().notificar("RECLAMO_REGISTRADO", reclamo);
     }
 
