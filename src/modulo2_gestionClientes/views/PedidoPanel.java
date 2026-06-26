@@ -4,110 +4,179 @@ import modulo2_gestionClientes.controllers.PedidoController;
 import modulo2_gestionClientes.models.Cliente;
 import modulo2_gestionClientes.models.Pedido;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
-public class PedidoPanel {
+public class PedidoPanel extends JPanel {
 
     private PedidoController controller;
-    private Scanner scanner;
+    private JTable tabla;
+    private DefaultTableModel modelo;
+    private JTextField txtIdCliente;
+    private JTextField txtEstado;
+    private JTextField txtTotal;
 
-    public PedidoPanel() {
-        this.controller = new PedidoController();
-        this.scanner = new Scanner(System.in);
+    public PedidoPanel(PedidoController controller) {
+        this.controller = controller;
+        setLayout(new BorderLayout());
+
+        JLabel titulo = new JLabel("Gestión de Pedidos");
+        titulo.setFont(new Font("SansSerif", Font.BOLD, 18));
+        titulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        modelo = new DefaultTableModel(new Object[]{"ID", "ID Cliente", "Estado", "Total", "Fecha"}, 0);
+        tabla = new JTable(modelo);
+
+        JPanel form = crearFormulario();
+
+        add(titulo, BorderLayout.NORTH);
+        add(new JScrollPane(tabla), BorderLayout.CENTER);
+        add(form, BorderLayout.EAST);
+
+        cargarTabla();
+
+        tabla.getSelectionModel().addListSelectionListener(e -> cargarSeleccion());
     }
 
-    public void mostrarMenu() {
-        int opcion;
-        do {
-            System.out.println("\n===== GESTION DE PEDIDOS =====");
-            System.out.println("1. Agregar pedido");
-            System.out.println("2. Actualizar pedido");
-            System.out.println("3. Eliminar pedido");
-            System.out.println("4. Buscar pedido por ID");
-            System.out.println("5. Listar todos");
-            System.out.println("6. Listar por cliente");
-            System.out.println("0. Volver");
-            System.out.print("Opcion: ");
-            opcion = scanner.nextInt();
+    private JPanel crearFormulario() {
+        JPanel form = new JPanel();
+        form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
+        form.setBorder(BorderFactory.createTitledBorder("Datos del Pedido"));
+        form.setPreferredSize(new Dimension(300, 0));
 
-            switch (opcion) {
-                case 1: agregar(); break;
-                case 2: actualizar(); break;
-                case 3: eliminar(); break;
-                case 4: buscarPorId(); break;
-                case 5: listarTodos(); break;
-                case 6: listarPorCliente(); break;
-                case 0: break;
-                default: System.out.println("Opcion invalida");
-            }
-        } while (opcion != 0);
+        txtIdCliente = new JTextField();
+        txtEstado = new JTextField("Pendiente");
+        txtTotal = new JTextField();
+
+        JButton btnAgregar = new JButton("Registrar Pedido");
+        JButton btnActualizar = new JButton("Actualizar");
+        JButton btnEliminar = new JButton("Eliminar");
+
+        form.add(new JLabel("ID Cliente:"));
+        form.add(txtIdCliente);
+        form.add(Box.createVerticalStrut(10));
+
+        form.add(new JLabel("Estado:"));
+        form.add(txtEstado);
+        form.add(Box.createVerticalStrut(10));
+
+        form.add(new JLabel("Total:"));
+        form.add(txtTotal);
+        form.add(Box.createVerticalStrut(20));
+
+        form.add(btnAgregar);
+        form.add(Box.createVerticalStrut(8));
+        form.add(btnActualizar);
+        form.add(Box.createVerticalStrut(8));
+        form.add(btnEliminar);
+
+        btnAgregar.addActionListener(e -> agregar());
+        btnActualizar.addActionListener(e -> actualizar());
+        btnEliminar.addActionListener(e -> eliminar());
+
+        return form;
+    }
+
+    private void cargarTabla() {
+        modelo.setRowCount(0);
+
+        List<Pedido> pedidos = controller.listarTodos();
+
+        for (Pedido p : pedidos) {
+            modelo.addRow(new Object[]{
+                    p.getIdPedido(),
+                    p.getCliente() != null ? p.getCliente().getIdCliente() : "",
+                    p.getEstado(),
+                    p.getTotal(),
+                    p.getFecha()
+            });
+        }
+    }
+
+    private void cargarSeleccion() {
+        int fila = tabla.getSelectedRow();
+
+        if (fila >= 0) {
+            txtIdCliente.setText(tabla.getValueAt(fila, 1).toString());
+            txtEstado.setText(tabla.getValueAt(fila, 2).toString());
+            txtTotal.setText(tabla.getValueAt(fila, 3).toString());
+        }
     }
 
     private void agregar() {
-        scanner.nextLine();
-        System.out.print("Estado (PENDIENTE/ENVIADO/ENTREGADO): ");
-        String estado = scanner.nextLine();
-        System.out.print("ID del cliente: ");
-        int idCliente = scanner.nextInt();
-        Cliente cliente = new Cliente();
-        cliente.setIdCliente(idCliente);
-        Pedido pedido = new Pedido(0, new Date(), estado, cliente, null);
-        controller.agregar(pedido);
-        System.out.println("Pedido agregado exitosamente");
+        try {
+            Cliente cliente = new Cliente();
+            cliente.setIdCliente(Integer.parseInt(txtIdCliente.getText()));
+
+            Pedido pedido = new Pedido(
+                    0,
+                    new Date(),
+                    txtEstado.getText(),
+                    Double.parseDouble(txtTotal.getText()),
+                    cliente
+            );
+
+            controller.agregar(pedido);
+            cargarTabla();
+            limpiarCampos();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al registrar pedido: " + e.getMessage());
+        }
     }
 
     private void actualizar() {
-        System.out.print("ID del pedido: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Nuevo estado: ");
-        String estado = scanner.nextLine();
-        System.out.print("ID del cliente: ");
-        int idCliente = scanner.nextInt();
-        Cliente cliente = new Cliente();
-        cliente.setIdCliente(idCliente);
-        Pedido pedido = new Pedido(id, new Date(), estado, cliente, null);
-        controller.actualizar(pedido);
-        System.out.println("Pedido actualizado exitosamente");
+        int fila = tabla.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona un pedido.");
+            return;
+        }
+
+        try {
+            int idPedido = Integer.parseInt(tabla.getValueAt(fila, 0).toString());
+
+            Cliente cliente = new Cliente();
+            cliente.setIdCliente(Integer.parseInt(txtIdCliente.getText()));
+
+            Pedido pedido = new Pedido(
+                    idPedido,
+                    new Date(),
+                    txtEstado.getText(),
+                    Double.parseDouble(txtTotal.getText()),
+                    cliente
+            );
+
+            controller.actualizar(pedido);
+            cargarTabla();
+            limpiarCampos();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar pedido: " + e.getMessage());
+        }
     }
 
     private void eliminar() {
-        System.out.print("ID del pedido a eliminar: ");
-        int id = scanner.nextInt();
+        int fila = tabla.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona un pedido.");
+            return;
+        }
+
+        int id = Integer.parseInt(tabla.getValueAt(fila, 0).toString());
+
         controller.eliminar(id);
-        System.out.println("Pedido eliminado exitosamente");
+        cargarTabla();
+        limpiarCampos();
     }
 
-    private void buscarPorId() {
-        System.out.print("ID del pedido: ");
-        int id = scanner.nextInt();
-        Pedido pedido = controller.buscarPorId(id);
-        if (pedido != null) {
-            System.out.println(pedido);
-        } else {
-            System.out.println("Pedido no encontrado");
-        }
-    }
-
-    private void listarTodos() {
-        List<Pedido> lista = controller.listarTodos();
-        if (lista.isEmpty()) {
-            System.out.println("No hay pedidos registrados");
-        } else {
-            lista.forEach(System.out::println);
-        }
-    }
-
-    private void listarPorCliente() {
-        System.out.print("ID del cliente: ");
-        int idCliente = scanner.nextInt();
-        List<Pedido> lista = controller.listarPorCliente(idCliente);
-        if (lista.isEmpty()) {
-            System.out.println("No hay pedidos para este cliente");
-        } else {
-            lista.forEach(System.out::println);
-        }
+    private void limpiarCampos() {
+        txtIdCliente.setText("");
+        txtEstado.setText("Pendiente");
+        txtTotal.setText("");
     }
 }
