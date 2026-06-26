@@ -6,12 +6,12 @@ import modulo2_gestionClientes.models.CategoriaCliente;
 import java.util.List;
 import java.util.Scanner;
 
-public class CategoriaClienteView {
+public class CategoriaClientePanel {
 
     private CategoriaClienteController controller;
     private Scanner scanner;
 
-    public CategoriaClienteView() {
+    public CategoriaClientePanel() {
         this.controller = new CategoriaClienteController();
         this.scanner = new Scanner(System.in);
     }

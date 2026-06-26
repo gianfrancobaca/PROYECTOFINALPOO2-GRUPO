@@ -6,12 +6,12 @@ import modulo2_gestionClientes.models.Cliente;
 import java.util.List;
 import java.util.Scanner;
 
-public class ReporteClienteView {
+public class ReporteClientePanel {
 
     private ReporteClienteController controller;
     private Scanner scanner;
 
-    public ReporteClienteView() {
+    public ReporteClientePanel() {
         this.controller = new ReporteClienteController();
         this.scanner = new Scanner(System.in);
     }

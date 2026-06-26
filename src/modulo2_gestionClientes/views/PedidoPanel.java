@@ -8,12 +8,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public class PedidoView {
+public class PedidoPanel {
 
     private PedidoController controller;
     private Scanner scanner;
 
-    public PedidoView() {
+    public PedidoPanel() {
         this.controller = new PedidoController();
         this.scanner = new Scanner(System.in);
     }

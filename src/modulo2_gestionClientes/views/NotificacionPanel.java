@@ -6,12 +6,12 @@ import modulo2_gestionClientes.models.Notificacion;
 import java.util.List;
 import java.util.Scanner;
 
-public class NotificacionView {
+public class NotificacionPanel {
 
     private NotificacionController controller;
     private Scanner scanner;
 
-    public NotificacionView() {
+    public NotificacionPanel() {
         this.controller = new NotificacionController();
         this.scanner = new Scanner(System.in);
     }

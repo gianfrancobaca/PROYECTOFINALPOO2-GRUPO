@@ -7,12 +7,12 @@ import modulo2_gestionClientes.models.MetodoPago;
 import java.util.List;
 import java.util.Scanner;
 
-public class MetodoPagoView {
+public class MetodoPagoPanel {
 
     private MetodoPagoController controller;
     private Scanner scanner;
 
-    public MetodoPagoView() {
+    public MetodoPagoPanel() {
         this.controller = new MetodoPagoController();
         this.scanner = new Scanner(System.in);
     }

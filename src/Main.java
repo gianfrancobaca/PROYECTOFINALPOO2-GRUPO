@@ -1,4 +1,3 @@
-import modulo2_gestionClientes.views.LoginView;
 import core.MainController;
 
 public class Main {

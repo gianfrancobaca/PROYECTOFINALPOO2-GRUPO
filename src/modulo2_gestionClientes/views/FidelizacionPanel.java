@@ -7,12 +7,12 @@ import modulo2_gestionClientes.models.ProgramaFidelizacion;
 import java.util.List;
 import java.util.Scanner;
 
-public class FidelizacionView {
+public class FidelizacionPanel {
 
     private FidelizacionController controller;
     private Scanner scanner;
 
-    public FidelizacionView() {
+    public FidelizacionPanel() {
         this.controller = new FidelizacionController();
         this.scanner = new Scanner(System.in);
     }

@@ -14,10 +14,12 @@ public class LoginController {
 
     public boolean iniciarSesion(String username, String password) {
         Usuario usuario = repository.buscarPorUsername(username);
+
         if (usuario != null) {
             SesionUsuario.getInstance().setUsuarioActivo(usuario);
             return true;
         }
+
         return false;
     }
 
@@ -33,4 +35,3 @@ public class LoginController {
         return SesionUsuario.getInstance().getUsuarioActivo();
     }
 }
-

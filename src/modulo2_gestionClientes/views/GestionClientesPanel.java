@@ -22,7 +22,7 @@ public class GestionClientesPanel extends JPanel implements View {
         pestañas.addTab("Clientes", new ClientePanel(clienteCtrl));
         pestañas.addTab("Facturas", new FacturaPanel(facturaCtrl));
         pestañas.addTab("Categorías", crearPanelTemporal("Gestión de categorías de clientes"));
-        pestañas.addTab("Reclamos", crearPanelTemporal("Gestión de reclamos"));
+        pestañas.addTab("Reclamos", new ReclamoPanel());
         pestañas.addTab("Fidelización", crearPanelTemporal("Programa de fidelización"));
         pestañas.addTab("Notificaciones", crearPanelTemporal("Notificaciones de clientes"));
         pestañas.addTab("Reportes", crearPanelTemporal("Reportes de clientes"));
