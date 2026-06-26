@@ -15,6 +15,7 @@ public class FidelizacionPanel extends JPanel {
     private JTable tabla;
     private DefaultTableModel modelo;
     private JTextField txtIdCliente;
+    private JTextField txtNombrePrograma;
     private JTextField txtPuntos;
     private JTextField txtNivel;
 
@@ -26,7 +27,10 @@ public class FidelizacionPanel extends JPanel {
         titulo.setFont(new Font("SansSerif", Font.BOLD, 18));
         titulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        modelo = new DefaultTableModel(new Object[]{"ID", "ID Cliente", "Puntos", "Nivel"}, 0);
+        modelo = new DefaultTableModel(
+                new Object[]{"ID", "ID Cliente", "Programa", "Puntos Acumulados", "Nivel"}, 0
+        );
+
         tabla = new JTable(modelo);
 
         JPanel form = crearFormulario();
@@ -44,9 +48,10 @@ public class FidelizacionPanel extends JPanel {
         JPanel form = new JPanel();
         form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
         form.setBorder(BorderFactory.createTitledBorder("Datos de Fidelización"));
-        form.setPreferredSize(new Dimension(300, 0));
+        form.setPreferredSize(new Dimension(320, 0));
 
         txtIdCliente = new JTextField();
+        txtNombrePrograma = new JTextField();
         txtPuntos = new JTextField();
         txtNivel = new JTextField();
 
@@ -58,7 +63,11 @@ public class FidelizacionPanel extends JPanel {
         form.add(txtIdCliente);
         form.add(Box.createVerticalStrut(10));
 
-        form.add(new JLabel("Puntos:"));
+        form.add(new JLabel("Nombre del Programa:"));
+        form.add(txtNombrePrograma);
+        form.add(Box.createVerticalStrut(10));
+
+        form.add(new JLabel("Puntos Acumulados:"));
         form.add(txtPuntos);
         form.add(Box.createVerticalStrut(10));
 
@@ -88,7 +97,8 @@ public class FidelizacionPanel extends JPanel {
             modelo.addRow(new Object[]{
                     p.getIdPrograma(),
                     p.getCliente() != null ? p.getCliente().getIdCliente() : "",
-                    p.getPuntos(),
+                    p.getNombre(),
+                    p.getPuntosAcumulados(),
                     p.getNivel()
             });
         }
@@ -99,8 +109,9 @@ public class FidelizacionPanel extends JPanel {
 
         if (fila >= 0) {
             txtIdCliente.setText(tabla.getValueAt(fila, 1).toString());
-            txtPuntos.setText(tabla.getValueAt(fila, 2).toString());
-            txtNivel.setText(tabla.getValueAt(fila, 3).toString());
+            txtNombrePrograma.setText(tabla.getValueAt(fila, 2).toString());
+            txtPuntos.setText(tabla.getValueAt(fila, 3).toString());
+            txtNivel.setText(tabla.getValueAt(fila, 4).toString());
         }
     }
 
@@ -111,6 +122,7 @@ public class FidelizacionPanel extends JPanel {
 
             ProgramaFidelizacion programa = new ProgramaFidelizacion(
                     0,
+                    txtNombrePrograma.getText(),
                     Integer.parseInt(txtPuntos.getText()),
                     txtNivel.getText(),
                     cliente
@@ -141,6 +153,7 @@ public class FidelizacionPanel extends JPanel {
 
             ProgramaFidelizacion programa = new ProgramaFidelizacion(
                     idPrograma,
+                    txtNombrePrograma.getText(),
                     Integer.parseInt(txtPuntos.getText()),
                     txtNivel.getText(),
                     cliente
@@ -172,7 +185,8 @@ public class FidelizacionPanel extends JPanel {
 
     private void limpiarCampos() {
         txtIdCliente.setText("");
+        txtNombrePrograma.setText("");
         txtPuntos.setText("");
         txtNivel.setText("");
     }
-} 
+}
