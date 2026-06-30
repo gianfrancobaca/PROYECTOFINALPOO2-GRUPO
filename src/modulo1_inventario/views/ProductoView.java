@@ -13,14 +13,12 @@ public class ProductoView extends JPanel implements View {
 
     private final ProductoListaPanel   listaPanel;
     private final ProductoFormPanel    formPanel;
-    private final ProductoVariantePanel variantePanel;
     private final FiltroProductoPanel  filtroPanel;
 
     public ProductoView(ProductoController controller) {
         this.controller   = controller;
         this.listaPanel   = new ProductoListaPanel(controller);
         this.formPanel    = new ProductoFormPanel(controller, listaPanel);
-        this.variantePanel= new ProductoVariantePanel(controller);
         this.filtroPanel  = new FiltroProductoPanel(controller, listaPanel);
 
         setLayout(new BorderLayout(5, 5));
@@ -37,7 +35,6 @@ public class ProductoView extends JPanel implements View {
 
         JTabbedPane tabsProducto = new JTabbedPane();
         tabsProducto.addTab("Lista y Formulario", split);
-        tabsProducto.addTab("Variantes (Talla/Color)", variantePanel);
 
         add(tabsProducto, BorderLayout.CENTER);
     }
