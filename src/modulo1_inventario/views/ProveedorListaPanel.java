@@ -14,7 +14,7 @@ public class ProveedorListaPanel extends JTable {
 
     public ProveedorListaPanel(ProveedorController controller) {
         this.controller = controller;
-        String[] cols = {"ID", "RUC", "Razón Social", "Contacto", "Teléfono", "Correo"};
+        String[] cols = {"ID", "Tipo Doc.", "N° Documento", "Nombre / Razón Social", "Contacto", "Teléfono", "Correo"};
         this.modelo = new DefaultTableModel(cols, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
         };
@@ -30,11 +30,11 @@ public class ProveedorListaPanel extends JTable {
     public void recargar() {
         modelo.setRowCount(0);
         for (Proveedor p : controller.obtenerActivos())
-            modelo.addRow(new Object[]{p.getId(), p.getRuc(), p.getRazonSocial(),
-                                       p.getContacto(), p.getTelefono(), p.getCorreo()});
+            modelo.addRow(new Object[]{p.getId(), p.getTipoDocumento(), p.getNumeroDocumento(),
+                    p.getRazonSocial(), p.getContacto(), p.getTelefono(), p.getCorreo()});
     }
 
-    public int      getProveedorSeleccionadoId()    { return proveedorSeleccionadoId; }
+    public int       getProveedorSeleccionadoId()    { return proveedorSeleccionadoId; }
     public Proveedor getProveedorSeleccionado()      {
         if (proveedorSeleccionadoId < 0) return null;
         return controller.buscarPorId(proveedorSeleccionadoId);

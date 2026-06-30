@@ -16,11 +16,11 @@ public class ProveedorController extends Controller {
 
     @Override public void run() {}
 
-    public List<Proveedor> obtenerActivos()          { return proveedorRepo.buscarActivos(); }
-    public List<Proveedor> obtenerTodos()            { return proveedorRepo.buscarTodos(); }
-    public Proveedor       buscarPorId(int id)       { return proveedorRepo.buscarPorId(id); }
-    public Proveedor       buscarPorRuc(String ruc)  { return proveedorRepo.buscarPorRuc(ruc); }
-    public void            registrar(Proveedor p)    { proveedorRepo.guardar(p); }
-    public void            actualizar(Proveedor p)   { proveedorRepo.actualizar(p); }
-    public void            desactivar(int id)        { proveedorRepo.eliminar(id); }
+    public List<Proveedor> obtenerActivos()                    { return proveedorRepo.buscarActivos(); }
+    public List<Proveedor> obtenerTodos()                      { return proveedorRepo.buscarTodos(); }
+    public Proveedor       buscarPorId(int id)                 { return proveedorRepo.buscarPorId(id); }
+    public Proveedor       buscarPorNumeroDocumento(String nd)  { return proveedorRepo.buscarPorNumeroDocumento(nd); }
+    public void            registrar(Proveedor p)              { proveedorRepo.guardar(p); }
+    public void            actualizar(Proveedor p)             { proveedorRepo.actualizar(p); }
+    public void            desactivar(int id)                  { proveedorRepo.eliminar(id); }
 }

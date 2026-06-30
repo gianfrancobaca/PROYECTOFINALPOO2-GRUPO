@@ -12,10 +12,16 @@ public class ProveedorRepositorySQL implements ProveedorRepository {
 
     private Proveedor mapear(ResultSet rs) throws SQLException {
         Proveedor p = new Proveedor();
-        p.setId(rs.getInt("id")); p.setRuc(rs.getString("ruc"));
-        p.setRazonSocial(rs.getString("razon_social")); p.setContacto(rs.getString("contacto"));
-        p.setTelefono(rs.getString("telefono")); p.setCorreo(rs.getString("correo"));
-        p.setDireccion(rs.getString("direccion")); p.setActivo(rs.getBoolean("activo"));
+        p.setId(rs.getInt("id"));
+        String tipoDoc = rs.getString("tipo_documento");
+        p.setTipoDocumento(tipoDoc != null ? Proveedor.TipoDocumento.valueOf(tipoDoc) : Proveedor.TipoDocumento.NINGUNO);
+        p.setNumeroDocumento(rs.getString("numero_documento"));
+        p.setRazonSocial(rs.getString("razon_social"));
+        p.setContacto(rs.getString("contacto"));
+        p.setTelefono(rs.getString("telefono"));
+        p.setCorreo(rs.getString("correo"));
+        p.setDireccion(rs.getString("direccion"));
+        p.setActivo(rs.getBoolean("activo"));
         return p;
     }
 
@@ -27,9 +33,9 @@ public class ProveedorRepositorySQL implements ProveedorRepository {
         return null;
     }
 
-    @Override public Proveedor buscarPorRuc(String ruc) {
-        try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM inv_proveedores WHERE ruc=?")) {
-            ps.setString(1, ruc); ResultSet rs = ps.executeQuery();
+    @Override public Proveedor buscarPorNumeroDocumento(String numeroDocumento) {
+        try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM inv_proveedores WHERE numero_documento=?")) {
+            ps.setString(1, numeroDocumento); ResultSet rs = ps.executeQuery();
             if (rs.next()) return mapear(rs);
         } catch (SQLException e) { System.err.println("[ProveedorRepo] " + e.getMessage()); }
         return null;
@@ -52,29 +58,40 @@ public class ProveedorRepositorySQL implements ProveedorRepository {
     }
 
     @Override public void guardar(Proveedor p) {
-        String sql = "INSERT INTO inv_proveedores (ruc, razon_social, contacto, telefono, correo, direccion, activo) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO inv_proveedores (tipo_documento, numero_documento, razon_social, contacto, telefono, correo, direccion, activo) VALUES (?,?,?,?,?,?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1,p.getRuc()); ps.setString(2,p.getRazonSocial());
-            ps.setString(3,p.getContacto()); ps.setString(4,p.getTelefono());
-            ps.setString(5,p.getCorreo()); ps.setString(6,p.getDireccion());
-            ps.setBoolean(7,p.isActivo()); ps.executeUpdate();
+            ps.setString(1, p.getTipoDocumento().name());
+            ps.setString(2, p.getNumeroDocumento());
+            ps.setString(3, p.getRazonSocial());
+            ps.setString(4, p.getContacto());
+            ps.setString(5, p.getTelefono());
+            ps.setString(6, p.getCorreo());
+            ps.setString(7, p.getDireccion());
+            ps.setBoolean(8, p.isActivo());
+            ps.executeUpdate();
             ResultSet keys = ps.getGeneratedKeys(); if (keys.next()) p.setId(keys.getInt(1));
         } catch (SQLException e) { System.err.println("[ProveedorRepo] " + e.getMessage()); }
     }
 
     @Override public void actualizar(Proveedor p) {
-        String sql = "UPDATE inv_proveedores SET ruc=?, razon_social=?, contacto=?, telefono=?, correo=?, direccion=?, activo=? WHERE id=?";
+        String sql = "UPDATE inv_proveedores SET tipo_documento=?, numero_documento=?, razon_social=?, contacto=?, telefono=?, correo=?, direccion=?, activo=? WHERE id=?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1,p.getRuc()); ps.setString(2,p.getRazonSocial());
-            ps.setString(3,p.getContacto()); ps.setString(4,p.getTelefono());
-            ps.setString(5,p.getCorreo()); ps.setString(6,p.getDireccion());
-            ps.setBoolean(7,p.isActivo()); ps.setInt(8,p.getId()); ps.executeUpdate();
+            ps.setString(1, p.getTipoDocumento().name());
+            ps.setString(2, p.getNumeroDocumento());
+            ps.setString(3, p.getRazonSocial());
+            ps.setString(4, p.getContacto());
+            ps.setString(5, p.getTelefono());
+            ps.setString(6, p.getCorreo());
+            ps.setString(7, p.getDireccion());
+            ps.setBoolean(8, p.isActivo());
+            ps.setInt(9, p.getId());
+            ps.executeUpdate();
         } catch (SQLException e) { System.err.println("[ProveedorRepo] " + e.getMessage()); }
     }
 
     @Override public void eliminar(int id) {
         try (PreparedStatement ps = conn.prepareStatement("UPDATE inv_proveedores SET activo=false WHERE id=?")) {
-            ps.setInt(1,id); ps.executeUpdate();
+            ps.setInt(1, id); ps.executeUpdate();
         } catch (SQLException e) { System.err.println("[ProveedorRepo] " + e.getMessage()); }
     }
 }
