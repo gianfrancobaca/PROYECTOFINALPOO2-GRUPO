@@ -30,16 +30,18 @@ public class DevolucionPanel extends JPanel {
                            ProductoController productoCtrl) {
         this.ajusteCtrl   = ajusteCtrl;
         this.productoCtrl = productoCtrl;
-        this.comboTipo       = new JComboBox<>(new String[]{"CLIENTE","PROVEEDOR"});
-        this.campoMotivo     = new JTextField(25);
-        this.comboProducto   = new JComboBox<>();
-        this.campoCantidad   = new JTextField(6);
-        this.campoMotivoLinea= new JTextField(15);
-        String[] cols = {"Producto ID","Producto","Cantidad","Motivo"};
+        this.comboTipo        = new JComboBox<>(new String[]{"CLIENTE","PROVEEDOR"});
+        this.campoMotivo      = new JTextField(20);
+        this.comboProducto    = new JComboBox<>();
+        this.campoCantidad    = new JTextField(6);
+        this.campoMotivoLinea = new JTextField(15);
+
+        String[] cols = {"Producto ID","Producto","Cantidad","Motivo línea"};
         this.modeloLineas = new DefaultTableModel(cols, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
         };
         this.tablaLineas = new JTable(modeloLineas);
+        tablaLineas.setRowHeight(22);
 
         setLayout(new BorderLayout(5, 5));
         construirUI();
@@ -47,72 +49,160 @@ public class DevolucionPanel extends JPanel {
     }
 
     private void construirUI() {
-        JPanel panelForm = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelForm.setBorder(BorderFactory.createTitledBorder("Registrar Devolución"));
-        panelForm.add(new JLabel("Tipo:")); panelForm.add(comboTipo);
-        panelForm.add(new JLabel("Motivo General:")); panelForm.add(campoMotivo);
-        panelForm.add(new JLabel("Producto:")); panelForm.add(comboProducto);
-        panelForm.add(new JLabel("Cantidad:")); panelForm.add(campoCantidad);
-        panelForm.add(new JLabel("Motivo Línea:")); panelForm.add(campoMotivoLinea);
+        // ────────────────────────────────────────────────────────────────
+        // Panel superior: datos de la devolución (GridBagLayout)
+        // ────────────────────────────────────────────────────────────────
+        JPanel panelDatos = new JPanel(new GridBagLayout());
+        panelDatos.setBorder(BorderFactory.createTitledBorder("Registrar Devolución"));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 8, 5, 8);
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill   = GridBagConstraints.HORIZONTAL;
 
-        JButton btnAgregar   = new JButton("Agregar Línea");
-        JButton btnRegistrar = new JButton("Registrar Devolución");
-        panelForm.add(btnAgregar); panelForm.add(btnRegistrar);
+        // Fila 0: Tipo | Motivo general
+        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0;
+        panelDatos.add(new JLabel("Tipo:"), gbc);
+        gbc.gridx = 1; gbc.weightx = 0.3;
+        panelDatos.add(comboTipo, gbc);
+
+        gbc.gridx = 2; gbc.weightx = 0;
+        panelDatos.add(new JLabel("Motivo general:"), gbc);
+        gbc.gridx = 3; gbc.weightx = 0.7;
+        panelDatos.add(campoMotivo, gbc);
+
+        // Fila 1: Producto | Cantidad
+        gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0;
+        panelDatos.add(new JLabel("Producto:"), gbc);
+        gbc.gridx = 1; gbc.weightx = 0.3;
+        panelDatos.add(comboProducto, gbc);
+
+        gbc.gridx = 2; gbc.weightx = 0;
+        panelDatos.add(new JLabel("Cantidad:"), gbc);
+        gbc.gridx = 3; gbc.weightx = 0.7;
+        panelDatos.add(campoCantidad, gbc);
+
+        // Fila 2: Motivo de línea
+        gbc.gridx = 0; gbc.gridy = 2; gbc.weightx = 0;
+        panelDatos.add(new JLabel("Motivo línea:"), gbc);
+        gbc.gridx = 1; gbc.gridwidth = 3; gbc.weightx = 1.0;
+        panelDatos.add(campoMotivoLinea, gbc);
+        gbc.gridwidth = 1; // reset
+
+        // Fila 3: Botones
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
+        JButton btnAgregar   = new JButton("➕ Agregar Línea");
+        JButton btnRegistrar = new JButton("✔ Registrar Devolución");
+        JButton btnLimpiar   = new JButton("✖ Limpiar");
+        panelBotones.add(btnAgregar);
+        panelBotones.add(btnRegistrar);
+        panelBotones.add(btnLimpiar);
+
+        gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 4; gbc.weightx = 1.0;
+        panelDatos.add(panelBotones, gbc);
 
         btnAgregar.addActionListener(e   -> agregarLinea());
         btnRegistrar.addActionListener(e -> registrarDevolucion());
+        btnLimpiar.addActionListener(e   -> {
+            modeloLineas.setRowCount(0);
+            campoMotivo.setText("");
+            campoCantidad.setText("");
+            campoMotivoLinea.setText("");
+        });
 
-        add(panelForm, BorderLayout.NORTH);
-        add(new JScrollPane(tablaLineas), BorderLayout.CENTER);
+        // ────────────────────────────────────────────────────────────────
+        // Panel central: tabla de líneas
+        // ────────────────────────────────────────────────────────────────
+        JScrollPane scrollTabla = new JScrollPane(tablaLineas);
+        scrollTabla.setBorder(BorderFactory.createTitledBorder("Líneas de la devolución"));
+
+        add(panelDatos,  BorderLayout.NORTH);
+        add(scrollTabla, BorderLayout.CENTER);
     }
 
     private void cargarProductos() {
         comboProducto.removeAllItems();
         for (Producto p : productoCtrl.obtenerActivos())
-            comboProducto.addItem(p.getId() + " - " + p.getNombre());
+            comboProducto.addItem(p.getId() + " – " + p.getNombre() + "  [stock: " + p.getStockActual() + "]");
     }
 
     private void agregarLinea() {
+        String sel = (String) comboProducto.getSelectedItem();
+        if (sel == null) { JOptionPane.showMessageDialog(this, "Seleccione un producto."); return; }
+        String cantidadTxt = campoCantidad.getText().trim();
+        if (cantidadTxt.isEmpty()) { JOptionPane.showMessageDialog(this, "Ingrese la cantidad."); return; }
+
         try {
-            String sel = (String) comboProducto.getSelectedItem();
-            if (sel == null) return;
-            int productoId = Integer.parseInt(sel.split(" - ")[0]);
+            int productoId = Integer.parseInt(sel.split(" – ")[0]);
             Producto p = productoCtrl.buscarPorId(productoId);
-            int cantidad = Integer.parseInt(campoCantidad.getText().trim());
+            if (p == null) { JOptionPane.showMessageDialog(this, "Producto no encontrado."); return; }
+            int cantidad = Integer.parseInt(cantidadTxt);
+            if (cantidad <= 0) throw new NumberFormatException();
+
             modeloLineas.addRow(new Object[]{
-                p.getId(), p.getNombre(), cantidad, campoMotivoLinea.getText().trim()
+                    p.getId(),
+                    p.getNombre(),
+                    cantidad,
+                    campoMotivoLinea.getText().trim()
             });
-            campoCantidad.setText(""); campoMotivoLinea.setText("");
+            campoCantidad.setText("");
+            campoMotivoLinea.setText("");
+
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Cantidad inválida.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La cantidad debe ser un número entero positivo.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void registrarDevolucion() {
         if (modeloLineas.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Agregue al menos una línea."); return;
+            JOptionPane.showMessageDialog(this, "Agregue al menos una línea antes de registrar.");
+            return;
         }
+        String motivo = campoMotivo.getText().trim();
+        if (motivo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el motivo general de la devolución.");
+            return;
+        }
+
         try {
-            Devolucion devolucion = new Devolucion(0,
+            Devolucion devolucion = new Devolucion(
+                    0,
                     Devolucion.TipoDevolucion.valueOf((String) comboTipo.getSelectedItem()),
-                    0, campoMotivo.getText().trim(), LocalDateTime.now(), 1);
+                    0, motivo, LocalDateTime.now(), 1
+            );
+
             List<DetalleDevolucion> detalles = new ArrayList<>();
             for (int i = 0; i < modeloLineas.getRowCount(); i++) {
-                detalles.add(new DetalleDevolucion(0, 0,
+                detalles.add(new DetalleDevolucion(
+                        0, 0,
                         (int) modeloLineas.getValueAt(i, 0),
                         (String) modeloLineas.getValueAt(i, 1),
                         (int) modeloLineas.getValueAt(i, 2),
-                        (String) modeloLineas.getValueAt(i, 3)));
+                        (String) modeloLineas.getValueAt(i, 3)
+                ));
             }
-            if ("CLIENTE".equals(comboTipo.getSelectedItem()))
+
+            String tipo = (String) comboTipo.getSelectedItem();
+            if ("CLIENTE".equals(tipo))
                 ajusteCtrl.registrarDevolucionCliente(devolucion, detalles, 1);
             else
                 ajusteCtrl.registrarDevolucionProveedor(devolucion, detalles, 1);
 
-            JOptionPane.showMessageDialog(this, "Devolución registrada correctamente.");
-            modeloLineas.setRowCount(0); campoMotivo.setText(""); cargarProductos();
-        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Devolución registrada correctamente. ID: " + devolucion.getId(),
+                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            modeloLineas.setRowCount(0);
+            campoMotivo.setText("");
+            campoCantidad.setText("");
+            campoMotivoLinea.setText("");
+            cargarProductos(); // refresca stocks en el combo
+
+        } catch (IllegalArgumentException ex) {
+            // Stock insuficiente u otro error de negocio
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al registrar devolución:\n" + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
