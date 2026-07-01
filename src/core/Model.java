@@ -1,4 +1,3 @@
-// ─── File: src/core/Model.java ───
 
 package core;
 

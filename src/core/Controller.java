@@ -1,5 +1,3 @@
-// ─── File: src/core/Controller.java ───
-
 package core;
 
 import java.awt.CardLayout;

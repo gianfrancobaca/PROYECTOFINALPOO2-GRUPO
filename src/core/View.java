@@ -1,5 +1,3 @@
-// ─── File: src/core/View.java ───
-
 package core;
 
 public interface View {

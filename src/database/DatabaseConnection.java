@@ -1,4 +1,3 @@
-// ─── File: src/database/DatabaseConnection.java ───
 
 package database;
 
@@ -6,10 +5,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * Singleton para la conexión a la base de datos SQL.
- * Centraliza el acceso para todos los repositorios del sistema.
- */
 public class DatabaseConnection {
 
     private static final String URL      = "jdbc:mysql://localhost:3306/trapos_y_sedas";
