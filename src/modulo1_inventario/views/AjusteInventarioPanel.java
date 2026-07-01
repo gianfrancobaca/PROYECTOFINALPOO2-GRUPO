@@ -47,9 +47,7 @@ public class AjusteInventarioPanel extends JPanel {
     }
 
     private void construirUI() {
-        // ────────────────────────────────────────────────────────────────
-        // Panel superior: datos del ajuste (GridBagLayout para no comprimir)
-        // ────────────────────────────────────────────────────────────────
+
         JPanel panelDatos = new JPanel(new GridBagLayout());
         panelDatos.setBorder(BorderFactory.createTitledBorder("Ajuste de Inventario"));
         GridBagConstraints gbc = new GridBagConstraints();
@@ -57,7 +55,6 @@ public class AjusteInventarioPanel extends JPanel {
         gbc.anchor  = GridBagConstraints.WEST;
         gbc.fill    = GridBagConstraints.HORIZONTAL;
 
-        // Fila 0: Tipo | Motivo
         gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0;
         panelDatos.add(new JLabel("Tipo de ajuste:"), gbc);
         gbc.gridx = 1; gbc.weightx = 0.4;
@@ -68,7 +65,6 @@ public class AjusteInventarioPanel extends JPanel {
         gbc.gridx = 3; gbc.weightx = 0.6;
         panelDatos.add(campoMotivo, gbc);
 
-        // Fila 1: Producto | Stock Nuevo
         gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0;
         panelDatos.add(new JLabel("Producto:"), gbc);
         gbc.gridx = 1; gbc.weightx = 0.4;
@@ -79,7 +75,6 @@ public class AjusteInventarioPanel extends JPanel {
         gbc.gridx = 3; gbc.weightx = 0.6;
         panelDatos.add(campoStockNuevo, gbc);
 
-        // Fila 2: Botones
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
         JButton btnAgregar   = new JButton("➕ Agregar Línea");
         JButton btnRegistrar = new JButton("✔ Registrar Ajuste");
@@ -99,9 +94,6 @@ public class AjusteInventarioPanel extends JPanel {
             campoStockNuevo.setText("");
         });
 
-        // ────────────────────────────────────────────────────────────────
-        // Panel central: tabla de líneas
-        // ────────────────────────────────────────────────────────────────
         JScrollPane scrollTabla = new JScrollPane(tablaLineas);
         scrollTabla.setBorder(BorderFactory.createTitledBorder("Líneas del ajuste"));
 

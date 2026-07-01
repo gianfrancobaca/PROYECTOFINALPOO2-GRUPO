@@ -38,7 +38,6 @@ public class OrdenCompraDetallePanel extends JPanel {
     }
 
     private void construirUI() {
-        // ── Panel de búsqueda ──
         JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 8));
         panelBusqueda.setBorder(BorderFactory.createTitledBorder("Buscar detalle de orden"));
         panelBusqueda.add(new JLabel("ID Orden:"));
@@ -53,15 +52,12 @@ public class OrdenCompraDetallePanel extends JPanel {
         btnBuscar.addActionListener(e  -> cargarDetalle());
         btnLimpiar.addActionListener(e -> limpiar());
 
-        // Permite presionar Enter en el campo para buscar
         campoOrdenId.addActionListener(e -> cargarDetalle());
 
-        // ── Tabla ──
         tabla.setRowHeight(22);
         tabla.getTableHeader().setReorderingAllowed(false);
         JScrollPane scroll = new JScrollPane(tabla);
 
-        // ── Pie: total ──
         JPanel panelPie = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 6));
         panelPie.add(labelTotal);
 
@@ -79,7 +75,6 @@ public class OrdenCompraDetallePanel extends JPanel {
         try {
             int ordenId = Integer.parseInt(texto);
 
-            // Verificar que la orden existe
             OrdenCompra orden = controller.buscarPorId(ordenId);
             if (orden == null) {
                 labelInfoOrden.setText("⚠  Orden #" + ordenId + " no encontrada.");
@@ -89,7 +84,6 @@ public class OrdenCompraDetallePanel extends JPanel {
                 return;
             }
 
-            // Cargar detalles
             List<DetalleOrdenCompra> detalles = controller.obtenerDetalles(ordenId);
 
             modeloTabla.setRowCount(0);

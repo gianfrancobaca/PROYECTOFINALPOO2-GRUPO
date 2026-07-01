@@ -49,9 +49,7 @@ public class DevolucionPanel extends JPanel {
     }
 
     private void construirUI() {
-        // ────────────────────────────────────────────────────────────────
-        // Panel superior: datos de la devolución (GridBagLayout)
-        // ────────────────────────────────────────────────────────────────
+
         JPanel panelDatos = new JPanel(new GridBagLayout());
         panelDatos.setBorder(BorderFactory.createTitledBorder("Registrar Devolución"));
         GridBagConstraints gbc = new GridBagConstraints();
@@ -59,7 +57,6 @@ public class DevolucionPanel extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill   = GridBagConstraints.HORIZONTAL;
 
-        // Fila 0: Tipo | Motivo general
         gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0;
         panelDatos.add(new JLabel("Tipo:"), gbc);
         gbc.gridx = 1; gbc.weightx = 0.3;
@@ -70,7 +67,6 @@ public class DevolucionPanel extends JPanel {
         gbc.gridx = 3; gbc.weightx = 0.7;
         panelDatos.add(campoMotivo, gbc);
 
-        // Fila 1: Producto | Cantidad
         gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0;
         panelDatos.add(new JLabel("Producto:"), gbc);
         gbc.gridx = 1; gbc.weightx = 0.3;
@@ -81,14 +77,12 @@ public class DevolucionPanel extends JPanel {
         gbc.gridx = 3; gbc.weightx = 0.7;
         panelDatos.add(campoCantidad, gbc);
 
-        // Fila 2: Motivo de línea
         gbc.gridx = 0; gbc.gridy = 2; gbc.weightx = 0;
         panelDatos.add(new JLabel("Motivo línea:"), gbc);
         gbc.gridx = 1; gbc.gridwidth = 3; gbc.weightx = 1.0;
         panelDatos.add(campoMotivoLinea, gbc);
-        gbc.gridwidth = 1; // reset
+        gbc.gridwidth = 1;
 
-        // Fila 3: Botones
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
         JButton btnAgregar   = new JButton("➕ Agregar Línea");
         JButton btnRegistrar = new JButton("✔ Registrar Devolución");
@@ -109,9 +103,7 @@ public class DevolucionPanel extends JPanel {
             campoMotivoLinea.setText("");
         });
 
-        // ────────────────────────────────────────────────────────────────
-        // Panel central: tabla de líneas
-        // ────────────────────────────────────────────────────────────────
+
         JScrollPane scrollTabla = new JScrollPane(tablaLineas);
         scrollTabla.setBorder(BorderFactory.createTitledBorder("Líneas de la devolución"));
 
@@ -198,7 +190,6 @@ public class DevolucionPanel extends JPanel {
             cargarProductos(); // refresca stocks en el combo
 
         } catch (IllegalArgumentException ex) {
-            // Stock insuficiente u otro error de negocio
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al registrar devolución:\n" + ex.getMessage(),
